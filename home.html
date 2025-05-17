@@ -164,37 +164,63 @@
         align-items: center;
         text-decoration: none;
         letter-spacing: 1px;
+        position: relative;
+        transition: all 0.4s ease;
+      }
+
+      .logo:hover {
+        color: var(--primary-light);
       }
 
       .logo-icon {
-        width: 35px;
-        height: 35px;
-        margin-right: 10px;
-        background-color: var(--primary-color);
+        width: 40px;
+        height: 40px;
+        margin-right: 12px;
         display: inline-block;
-        border-radius: 4px;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s ease;
+        transition: all 0.5s ease;
       }
 
-      .logo:hover .logo-icon {
-        transform: rotate(10deg);
-      }
-
-      .logo-icon::after {
+      .logo-icon::before {
         content: "";
         position: absolute;
         width: 100%;
         height: 100%;
+        background: var(--primary-color);
+        clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+        z-index: 1;
+        transition: all 0.4s ease;
+      }
+
+      .logo-icon::after {
+        content: "D";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--secondary-color);
+        z-index: 2;
+        transition: all 0.4s ease;
+      }
+
+      .logo:hover .logo-icon {
+        transform: rotate(10deg) scale(1.1);
+      }
+
+      .logo:hover .logo-icon::before {
         background: linear-gradient(
           135deg,
-          rgba(255, 255, 255, 0.2) 0%,
-          rgba(255, 255, 255, 0) 50%
+          var(--primary-color) 0%,
+          var(--primary-light) 100%
         );
-        top: 0;
-        left: 0;
+      }
+
+      .logo:hover .logo-icon::after {
+        color: var(--white);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       }
 
       /* Navigation */
@@ -781,11 +807,11 @@
       /* Stats Section */
       .stats {
         background-color: var(--secondary-color);
-        padding: 7rem 0;
+        padding: 8rem 0;
         color: var(--white);
         position: relative;
         overflow: hidden;
-        background-image: url("https://cdn.pixabay.com/photo/2015/01/08/18/25/desk-593327_1280.jpg");
+        background-image: url("https://cdn.pixabay.com/photo/2016/11/18/17/46/architecture-1835784_1280.jpg");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -798,7 +824,11 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(46, 46, 46, 0.85);
+        background: linear-gradient(
+          135deg,
+          rgba(0, 0, 0, 0.9) 0%,
+          rgba(0, 0, 0, 0.75) 100%
+        );
         z-index: 1;
       }
 
@@ -807,15 +837,16 @@
         position: absolute;
         top: 0;
         right: 0;
-        width: 40%;
+        width: 50%;
         height: 100%;
         background: linear-gradient(
           135deg,
-          rgba(212, 175, 55, 0.8) 0%,
-          rgba(138, 109, 59, 0.8) 100%
+          rgba(212, 175, 55, 0.3) 0%,
+          rgba(138, 109, 59, 0.4) 100%
         );
-        clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+        clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
         z-index: 1;
+        backdrop-filter: blur(5px);
       }
 
       .stats-content {
@@ -827,23 +858,30 @@
       }
 
       .stats-title {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
         margin-bottom: 5rem;
         text-align: center;
         position: relative;
         color: var(--white);
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        letter-spacing: 2px;
+        font-weight: 700;
       }
 
       .stats-title::after {
         content: "";
         position: absolute;
         height: 4px;
-        width: 80px;
-        background-color: var(--primary-color);
+        width: 100px;
+        background: linear-gradient(
+          90deg,
+          var(--primary-color) 0%,
+          var(--primary-light) 100%
+        );
         bottom: -15px;
         left: 50%;
         transform: translateX(-50%);
+        border-radius: 2px;
       }
 
       .stats-grid {
@@ -852,10 +890,162 @@
         gap: 3rem;
       }
 
+      .stat-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: var(--border-radius-md);
+        padding: 2.5rem 1.5rem;
+        text-align: center;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .stat-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--primary-color) 0%,
+          var(--primary-light) 100%
+        );
+        transition: all 0.4s ease;
+      }
+
+      .stat-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .stat-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--primary-dark) 100%
+        );
+        border-radius: 50%;
+        margin: 0 auto 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        font-size: 1.8rem;
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        transition: all 0.5s ease;
+      }
+
+      .stat-item:hover .stat-icon {
+        transform: rotateY(360deg);
+      }
+
+      .stat-number {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--white);
+        line-height: 1;
+        position: relative;
+        display: inline-flex;
+        align-items: baseline;
+      }
+
+      .stat-number .plus,
+      .stat-number .unit {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-left: 5px;
+      }
+
+      .stat-label {
+        font-size: 1.1rem;
+        color: var(--gray-300);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 0.5rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .stat-description {
+        font-size: 0.9rem;
+        color: var(--gray-400);
+        line-height: 1.6;
+        margin: 0;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+      }
+
+      .stat-item:hover .stat-description {
+        color: var(--white);
+        opacity: 1;
+      }
+
+      /* Counter animation styles */
+      .stat-item.counting .stat-number {
+        color: var(--primary-color);
+        transform: scale(1.1);
+        transition: all 0.3s ease;
+      }
+
+      .stat-item.counted .stat-number {
+        animation: pulseNumber 1s ease-out;
+      }
+
+      @keyframes pulseNumber {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+          color: var(--primary-light);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* Stats section visibility animation */
+      .stats.visible .stat-item {
+        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0;
+      }
+
+      .stats.visible .stat-item:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+
+      .stats.visible .stat-item:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+
+      .stats.visible .stat-item:nth-child(3) {
+        animation-delay: 0.5s;
+      }
+
+      .stats.visible .stat-item:nth-child(4) {
+        animation-delay: 0.7s;
+      }
+
       @media (max-width: 1200px) {
         .stats-grid {
           grid-template-columns: repeat(4, 1fr);
           gap: 2rem;
+        }
+
+        .stat-number {
+          font-size: 3rem;
         }
       }
 
@@ -863,6 +1053,21 @@
         .stats-grid {
           grid-template-columns: repeat(2, 1fr);
           gap: 2rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .stats-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .stat-item {
+          padding: 2rem 1rem;
+        }
+
+        .stats-title {
+          font-size: 2.2rem;
         }
       }
 
@@ -1558,15 +1763,41 @@
             >Learn More <i class="fas fa-arrow-right"></i
           ></a>
         </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-building"></i>
+          </div>
+          <h3>Commercial Construction</h3>
+          <p>
+            Specialized expertise in commercial building projects including office spaces,
+            retail centers, and industrial facilities with a focus on functionality and aesthetics.
+          </p>
+          <a href="#" class="read-more"
+            >Learn More <i class="fas fa-arrow-right"></i
+          ></a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <h3>Residential Development</h3>
+          <p>
+            Creating exceptional living spaces from luxury single-family homes to multi-unit
+            residential complexes with meticulous attention to quality and detail.
+          </p>
+          <a href="#" class="read-more"
+            >Learn More <i class="fas fa-arrow-right"></i
+          ></a>
+        </div>
       </div>
     </section>
 
     <!-- Stats Section -->
     <section class="stats" id="stats">
       <div class="stats-content">
-        <h2 class="stats-title">EVERY ANGLE COVERED</h2>
+        <h2 class="stats-title">OUR ACHIEVEMENTS</h2>
         <div class="stats-grid">
-          <div class="stat-item">
+          <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
             <div class="stat-icon">
               <i class="fas fa-building"></i>
             </div>
@@ -1575,8 +1806,9 @@
               <span class="plus">+</span>
             </div>
             <div class="stat-label">Completed Projects</div>
+            <p class="stat-description">Successfully delivered projects across residential, commercial, and industrial sectors</p>
           </div>
-          <div class="stat-item">
+          <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
             <div class="stat-icon">
               <i class="fas fa-chart-area"></i>
             </div>
@@ -1585,8 +1817,9 @@
               <span class="unit">m sqm+</span>
             </div>
             <div class="stat-label">Area Built</div>
+            <p class="stat-description">Total construction area completed with precision and excellence</p>
           </div>
-          <div class="stat-item">
+          <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
             <div class="stat-icon">
               <i class="fas fa-users"></i>
             </div>
@@ -1595,8 +1828,9 @@
               <span class="plus">+</span>
             </div>
             <div class="stat-label">Professional Team</div>
+            <p class="stat-description">Skilled professionals dedicated to delivering exceptional results</p>
           </div>
-          <div class="stat-item">
+          <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
             <div class="stat-icon">
               <i class="fas fa-trophy"></i>
             </div>
@@ -1605,6 +1839,7 @@
               <span class="plus">+</span>
             </div>
             <div class="stat-label">Awards Won</div>
+            <p class="stat-description">Industry recognition for our commitment to quality and innovation</p>
           </div>
         </div>
       </div>
@@ -1714,94 +1949,105 @@
     </section>
 
     <!-- Our People Section -->
-    <section class="team" id="team">
-      <div class="section-header">
-        <h2 class="section-title">Our People</h2>
-        <p class="section-subtitle">
-          Meet our team of experienced professionals dedicated to bringing your
-          construction vision to life.
-        </p>
-      </div>
-      <div class="team-grid">
-        <div class="team-member">
-          <img
-            src="https://cdn.pixabay.com/photo/2016/11/29/09/38/adult-1868750_1280.jpg"
-            alt="Team Member"
-            class="team-photo"
-          />
-          <div class="team-info">
-            <h3 class="team-name">Michael Johnson</h3>
-            <p class="team-position">Managing Director</p>
-            <p class="team-bio">
-              With over 20 years of experience in construction management,
-              Michael leads our team with expertise and vision.
-            </p>
-            <div class="team-social">
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fas fa-envelope"></i></a>
+    <section class="team" id="team" style="background: linear-gradient(135deg, #0c2050 0%, #1a3a7d 100%); color: white; padding: 100px 0; position: relative; overflow: hidden;">
+      <!-- Background decorative elements -->
+      <div style="position: absolute; top: -150px; right: -150px; width: 300px; height: 300px; background: rgba(110, 138, 197, 0.05); border-radius: 50%; z-index: 1;"></div>
+      <div style="position: absolute; bottom: -100px; left: -100px; width: 200px; height: 200px; background: rgba(212, 175, 55, 0.05); border-radius: 50%; z-index: 1;"></div>
+
+      <div class="container" style="position: relative; z-index: 2;">
+        <div style="margin-bottom: 60px; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+          <h4 style="color: var(--primary-color); text-transform: uppercase; font-size: 1rem; margin-bottom: 10px; letter-spacing: 2px; font-weight: 600;">OUR PEOPLE</h4>
+          <h2 style="color: white; font-size: 2.5rem; margin-bottom: 20px; position: relative; display: inline-block;">Industry Leadership</h2>
+          <div style="width: 80px; height: 4px; background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-light) 100%); margin: 0 auto 25px;"></div>
+          <p style="color: #d9d9d9; max-width: 700px; line-height: 1.7; font-size: 1.05rem; margin: 0 auto;">
+            Our team brings the country's leading construction & development specialists with
+            expertise across the project lifecycle: from development, project design & planning to
+            cost planning & estimating, through to construction and place management.
+          </p>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+          <!-- First Team Member -->
+          <div style="flex: 1; min-width: 280px; max-width: 380px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; overflow: hidden; transition: all 0.4s ease; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.1);"
+               onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 35px rgba(0, 0, 0, 0.3)';"
+               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0, 0, 0, 0.2)';">
+            <div style="position: relative; overflow: hidden;">
+              <img
+                src="https://cdn.pixabay.com/photo/2016/11/29/09/38/adult-1868750_1280.jpg"
+                alt="Marco Fahd"
+                style="width: 100%; height: 280px; object-fit: cover; transition: transform 0.6s ease;"
+                onmouseover="this.style.transform='scale(1.05)';"
+                onmouseout="this.style.transform='scale(1)';"
+              />
+              <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 10px;">
+                <a href="#" style="width: 36px; height: 36px; background: rgba(255, 255, 255, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #0c2050; font-size: 1rem; transition: all 0.3s ease;"
+                   onmouseover="this.style.backgroundColor='var(--primary-color)'; this.style.color='white'; this.style.transform='translateY(-3px)';"
+                   onmouseout="this.style.backgroundColor='rgba(255, 255, 255, 0.9)'; this.style.color='#0c2050'; this.style.transform='translateY(0)';">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" style="width: 36px; height: 36px; background: rgba(255, 255, 255, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #0c2050; font-size: 1rem; transition: all 0.3s ease;"
+                   onmouseover="this.style.backgroundColor='var(--primary-color)'; this.style.color='white'; this.style.transform='translateY(-3px)';"
+                   onmouseout="this.style.backgroundColor='rgba(255, 255, 255, 0.9)'; this.style.color='#0c2050'; this.style.transform='translateY(0)';">
+                  <i class="fas fa-ellipsis-v"></i>
+                </a>
+              </div>
+            </div>
+            <div style="padding: 25px 20px;">
+              <div style="color: var(--primary-color); text-transform: uppercase; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 10px;">GROUP CHAIRMAN & CEO</div>
+              <h3 style="color: white; font-size: 1.6rem; margin-bottom: 15px; position: relative; padding-bottom: 15px;">MARCO FAHD</h3>
+              <div style="width: 40px; height: 3px; background: var(--primary-color); position: absolute; margin-top: -15px;"></div>
+              <p style="color: #d9d9d9; line-height: 1.6; font-size: 0.95rem; margin-bottom: 0;">
+                For over 20 years, under Marco's leadership and vision, Dyme Construction has played a
+                significant role in delivering and contributing to some of the most prestigious and well-known projects in
+                Australia.
+              </p>
+            </div>
+          </div>
+
+          <!-- Second Team Member -->
+          <div style="flex: 1; min-width: 280px; max-width: 380px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; overflow: hidden; transition: all 0.4s ease; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.1);"
+               onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 35px rgba(0, 0, 0, 0.3)';"
+               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0, 0, 0, 0.2)';">
+            <div style="position: relative; overflow: hidden;">
+              <img
+                src="https://cdn.pixabay.com/photo/2019/02/11/20/20/woman-3990680_1280.jpg"
+                alt="Fabrizio Perilli"
+                style="width: 100%; height: 280px; object-fit: cover; transition: transform 0.6s ease;"
+                onmouseover="this.style.transform='scale(1.05)';"
+                onmouseout="this.style.transform='scale(1)';"
+              />
+              <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 10px;">
+                <a href="#" style="width: 36px; height: 36px; background: rgba(255, 255, 255, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #0c2050; font-size: 1rem; transition: all 0.3s ease;"
+                   onmouseover="this.style.backgroundColor='var(--primary-color)'; this.style.color='white'; this.style.transform='translateY(-3px)';"
+                   onmouseout="this.style.backgroundColor='rgba(255, 255, 255, 0.9)'; this.style.color='#0c2050'; this.style.transform='translateY(0)';">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" style="width: 36px; height: 36px; background: rgba(255, 255, 255, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #0c2050; font-size: 1rem; transition: all 0.3s ease;"
+                   onmouseover="this.style.backgroundColor='var(--primary-color)'; this.style.color='white'; this.style.transform='translateY(-3px)';"
+                   onmouseout="this.style.backgroundColor='rgba(255, 255, 255, 0.9)'; this.style.color='#0c2050'; this.style.transform='translateY(0)';">
+                  <i class="fas fa-ellipsis-v"></i>
+                </a>
+              </div>
+            </div>
+            <div style="padding: 25px 20px;">
+              <div style="color: var(--primary-color); text-transform: uppercase; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 10px;">GROUP MANAGING DIRECTOR</div>
+              <h3 style="color: white; font-size: 1.6rem; margin-bottom: 15px; position: relative; padding-bottom: 15px;">FABRIZIO PERILLI</h3>
+              <div style="width: 40px; height: 3px; background: var(--primary-color); position: absolute; margin-top: -15px;"></div>
+              <p style="color: #d9d9d9; line-height: 1.6; font-size: 0.95rem; margin-bottom: 0;">
+                With over 30 years experience delivering quality developments with confidence,
+                Fabrizio also leads the property industry as the President of The Property Council of
+                Australia's NSW division.
+              </p>
             </div>
           </div>
         </div>
-        <div class="team-member">
-          <img
-            src="https://cdn.pixabay.com/photo/2019/02/11/20/20/woman-3990680_1280.jpg"
-            alt="Team Member"
-            class="team-photo"
-          />
-          <div class="team-info">
-            <h3 class="team-name">Sarah Williams</h3>
-            <p class="team-position">Project Director</p>
-            <p class="team-bio">
-              Sarah specializes in complex project delivery and ensures every
-              project is completed to the highest standards.
-            </p>
-            <div class="team-social">
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fas fa-envelope"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="team-member">
-          <img
-            src="https://cdn.pixabay.com/photo/2016/11/29/20/22/adult-1871436_1280.jpg"
-            alt="Team Member"
-            class="team-photo"
-          />
-          <div class="team-info">
-            <h3 class="team-name">David Chen</h3>
-            <p class="team-position">Construction Manager</p>
-            <p class="team-bio">
-              David brings technical excellence to our construction processes
-              with his engineering background.
-            </p>
-            <div class="team-social">
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fas fa-envelope"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="team-member">
-          <img
-            src="https://cdn.pixabay.com/photo/2017/06/26/02/47/man-2442565_1280.jpg"
-            alt="Team Member"
-            class="team-photo"
-          />
-          <div class="team-info">
-            <h3 class="team-name">James Wilson</h3>
-            <p class="team-position">Design Director</p>
-            <p class="team-bio">
-              James leads our design team with creativity and attention to
-              detail on all architectural aspects.
-            </p>
-            <div class="team-social">
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fas fa-envelope"></i></a>
-            </div>
-          </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+          <a href="#" class="btn" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%); border: none; display: inline-block; padding: 12px 30px; border-radius: 50px; font-size: 1rem; font-weight: 600; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); transition: all 0.3s ease;"
+             onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(212, 175, 55, 0.4)';"
+             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(212, 175, 55, 0.3)';">
+            MEET THE TEAM
+          </a>
         </div>
       </div>
     </section>
@@ -2076,59 +2322,86 @@
         }
       }
 
-      // Stats counter animation
+      // Stats counter animation with improved visual effect
       function animateCounters() {
         const counters = document.querySelectorAll(".counter");
-        const speed = 200; // The lower the number, the faster the animation
+        const duration = 2000; // Animation duration in milliseconds
 
         counters.forEach((counter) => {
-          const updateCount = () => {
-            const target = +counter.getAttribute("data-target");
-            const count = +counter.innerText;
+          const target = +counter.getAttribute("data-target");
+          const parent = counter.closest('.stat-item');
 
-            // Calculate the increment
-            let increment = target / speed;
+          // Add animation class to parent
+          if (parent) {
+            parent.classList.add('counting');
+          }
 
-            // If target is less than 100, use a smaller increment for smoother animation
-            if (target < 100) increment = 0.1;
+          // Start from zero
+          counter.innerText = '0';
 
-            // Check if target is reached
-            if (count < target) {
-              // Add increment and set as content
-              counter.innerText = Math.ceil(count + increment);
-              // Call function every ms
-              setTimeout(updateCount, 1);
+          // Calculate increment per frame for smooth animation
+          const frameDuration = 1000/60; // 60fps
+          const totalFrames = Math.round(duration / frameDuration);
+          const incrementPerFrame = target / totalFrames;
+
+          let currentCount = 0;
+          let frame = 0;
+
+          // Create animation function
+          const animate = () => {
+            frame++;
+            // Use easeOutQuad for smoother animation near the end
+            const progress = frame / totalFrames;
+            const easedProgress = -progress * (progress - 2); // easeOutQuad formula
+            currentCount = Math.min(Math.ceil(target * easedProgress), target);
+
+            counter.innerText = currentCount;
+
+            if (frame < totalFrames) {
+              requestAnimationFrame(animate);
             } else {
               counter.innerText = target;
+              // Remove animation class when done
+              if (parent) {
+                setTimeout(() => {
+                  parent.classList.remove('counting');
+                  parent.classList.add('counted');
+                }, 300);
+              }
             }
           };
 
-          updateCount();
+          // Start animation
+          requestAnimationFrame(animate);
         });
       }
 
-      // Check if element is in viewport
-      function isInViewport(element) {
-        const rect = element.getBoundingClientRect();
+      // Better viewport detection with margin
+      function isElementInViewport(el, margin = 0) {
+        const rect = el.getBoundingClientRect();
         return (
-          rect.top >= 0 &&
-          rect.left >= 0 &&
-          rect.bottom <=
-            (window.innerHeight || document.documentElement.clientHeight) &&
-          rect.right <=
-            (window.innerWidth || document.documentElement.clientWidth)
+          rect.top <= (window.innerHeight || document.documentElement.clientHeight) + margin &&
+          rect.bottom >= 0 - margin &&
+          rect.left <= (window.innerWidth || document.documentElement.clientWidth) + margin &&
+          rect.right >= 0 - margin
         );
       }
 
-      // Start animation when stats section comes into view
-      let animated = false;
-      window.addEventListener("scroll", () => {
+      // Start animation when stats section comes into view with some margin
+      let statsAnimated = false;
+      function checkStatsVisibility() {
         const statsSection = document.querySelector(".stats");
-        if (isInViewport(statsSection) && !animated) {
+        if (isElementInViewport(statsSection, 100) && !statsAnimated) {
           animateCounters();
-          animated = true;
+          statsAnimated = true;
+          // Add a class to the stats section for additional animations
+          statsSection.classList.add('visible');
         }
-      });
+      }
+
+      // Check on scroll and on page load
+      window.addEventListener("scroll", checkStatsVisibility);
+      window.addEventListener("load", checkStatsVisibility);
       // Initialize the slider
       startSlider();
 
