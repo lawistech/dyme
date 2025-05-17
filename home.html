@@ -283,14 +283,35 @@
         transform: translateY(-3px);
       }
 
-      /* Hero Slider */
-      .hero-slider {
+      /* Hero Section */
+      .hero {
         position: relative;
         height: 100vh;
         min-height: 600px;
         overflow: hidden;
+        color: var(--white);
         margin-top: 0;
         padding-top: 80px;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 1;
+      }
+
+      /* Hero Slider */
+      .hero-slider {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
       }
 
       .slides-container {
@@ -472,46 +493,13 @@
         box-shadow: var(--box-shadow-sm);
       }
 
-      .scroll-down {
-        position: absolute;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 3;
-        color: var(--white);
-        font-size: 2rem;
-        cursor: pointer;
-        animation: bounce 2s infinite;
-        opacity: 0.8;
-        transition: opacity 0.3s;
-      }
-
-      .scroll-down:hover {
-        opacity: 1;
-      }
-
-      @keyframes bounce {
-        0%,
-        20%,
-        50%,
-        80%,
-        100% {
-          transform: translateY(0) translateX(-50%);
-        }
-        40% {
-          transform: translateY(-20px) translateX(-50%);
-        }
-        60% {
-          transform: translateY(-10px) translateX(-50%);
-        }
-      }
-
       /* Company Info Section */
       .company-info {
         padding: 7rem 0;
         background-color: var(--light-color);
         position: relative;
         overflow: hidden;
+        margin-top: 0;
       }
 
       .company-info::before {
@@ -592,7 +580,7 @@
       .company-info-image {
         width: 48%;
         height: 450px;
-        background-image: url("https://cdn.pixabay.com/photo/2016/11/23/15/14/architect-1853491_1280.jpg");
+        background-image: url("/api/placeholder/600/450");
         background-size: cover;
         background-position: center;
         border-radius: var(--border-radius-md);
@@ -791,15 +779,38 @@
       /* Stats Section */
       .stats {
         background: linear-gradient(
-            135deg,
-            rgba(46, 46, 46, 0.85) 0%,
-            rgba(74, 74, 74, 0.85) 100%
-          ),
-          url("https://cdn.pixabay.com/photo/2019/10/08/13/05/skyline-4534348_1280.jpg")
-            center/cover no-repeat fixed;
-        padding: 8rem 0;
+          135deg,
+          var(--secondary-color) 0%,
+          var(--secondary-light) 100%
+        );
+        padding: 7rem 0;
         color: var(--white);
         position: relative;
+        overflow: hidden;
+      }
+
+      .stats::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--primary-dark) 100%
+        );
+        clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+        z-index: 1;
+      }
+
+      .stats-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
       }
 
       .stats-title {
@@ -807,59 +818,43 @@
         margin-bottom: 4rem;
         text-align: center;
         position: relative;
-        width: 100%;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        font-weight: 700;
-        letter-spacing: 1px;
-        color: var(--white);
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       }
 
-      .stats-subtitle {
-        text-align: center;
-        color: var(--gray-300);
-        max-width: 800px;
-        margin: 0 auto 4rem;
-        font-size: 1.1rem;
-        line-height: 1.7;
+      .stats-title::after {
+        content: "";
+        position: absolute;
+        height: 4px;
+        width: 60px;
+        background-color: var(--primary-color);
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
       }
 
       .stats-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 3.5rem;
-        max-width: 1200px;
-        margin: 0 auto;
+        gap: 3rem;
       }
 
       .stat-item {
         text-align: center;
-        background: rgba(0, 0, 0, 0.2);
-        padding: 2.5rem 1rem;
-        border-radius: var(--border-radius-md);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        border: 1px solid rgba(212, 175, 55, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        animation: fadeIn 1s ease-out;
       }
 
-      .stat-item:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        border-color: rgba(212, 175, 55, 0.3);
-      }
-
-      .stat-icon {
-        font-size: 2.5rem;
-        color: var(--primary-color);
-        margin-bottom: 1.5rem;
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
       }
 
       .stat-value {
         font-size: 3.5rem;
         font-weight: 700;
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
         background: linear-gradient(
           to right,
           var(--primary-color),
@@ -872,24 +867,21 @@
         display: inline-block;
       }
 
-      .stat-unit {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--primary-light);
-        margin-left: 0.25rem;
+      .stat-value::after {
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 3px;
+        background-color: var(--primary-color);
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
       }
 
       .stat-label {
         font-size: 1.2rem;
         font-weight: 500;
         letter-spacing: 1px;
-        margin-top: 1rem;
-      }
-
-      @media (max-width: 768px) {
-        .stats-subtitle {
-          padding: 0 2rem;
-        }
       }
 
       /* Projects Section */
@@ -1347,6 +1339,10 @@
           transform: translateX(-50%);
         }
 
+        .company-info {
+          padding-top: 5rem;
+        }
+
         .company-info-content {
           flex-direction: column;
         }
@@ -1406,15 +1402,15 @@
           font-size: 85%;
         }
 
-        .hero-slider {
+        .hero {
           height: auto;
-          padding: 120px 0 80px;
+          min-height: 100vh;
         }
 
         .slide-content {
           position: relative;
           width: 90%;
-          margin: 0 auto;
+          margin: 120px auto 80px;
           padding: 2rem;
         }
 
@@ -1434,6 +1430,10 @@
           width: 8px;
           height: 8px;
           margin: 0 4px;
+        }
+
+        .company-info {
+          padding-top: 3rem;
         }
 
         .section-title {
@@ -1463,224 +1463,6 @@
 
         .footer-links a:hover {
           padding-left: 0;
-        }
-      }
-
-      /* New CTA Map Section Styles */
-      .cta-map-section {
-        padding: 0;
-        position: relative;
-        overflow: hidden;
-        color: var(--white);
-      }
-
-      .cta-map-container {
-        display: flex;
-        min-height: 600px;
-      }
-
-      .cta-content {
-        flex: 1;
-        padding: 6rem 4rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        animation: fadeIn 1s ease-out;
-      }
-
-      .cta-content h2 {
-        font-size: 3rem;
-        margin-bottom: 1.5rem;
-        line-height: 1.3;
-        position: relative;
-      }
-
-      .cta-content h2:after {
-        content: "";
-        position: absolute;
-        width: 80px;
-        height: 4px;
-        background-color: var(--white);
-        bottom: -15px;
-        left: 0;
-      }
-
-      .cta-content p {
-        font-size: 1.2rem;
-        margin-bottom: 2.5rem;
-        line-height: 1.7;
-        color: var(--white);
-        opacity: 0.9;
-        max-width: 500px;
-      }
-
-      .contact-options {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        margin-bottom: 2.5rem;
-      }
-
-      .contact-option {
-        display: flex;
-        align-items: center;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: var(--border-radius-md);
-        padding: 1rem;
-        transition: all var(--transition-normal);
-      }
-
-      .contact-option:hover {
-        transform: translateX(10px);
-        background: rgba(255, 255, 255, 0.2);
-      }
-
-      .contact-option-icon {
-        width: 50px;
-        height: 50px;
-        background: var(--white);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 1rem;
-        color: var(--primary-dark);
-        font-size: 1.3rem;
-      }
-
-      .contact-option-info h4 {
-        font-size: 1rem;
-        margin-bottom: 0.2rem;
-        font-weight: 600;
-      }
-
-      .contact-option-info p {
-        font-size: 1rem;
-        margin-bottom: 0;
-        color: var(--white);
-        opacity: 0.9;
-      }
-
-      .cta-buttons {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-      }
-
-      .cta-btn {
-        padding: 1rem 2rem;
-        font-size: 1rem;
-        min-width: 180px;
-        text-align: center;
-      }
-
-      .cta-btn-outline {
-        background-color: transparent;
-        border: 2px solid var(--white);
-        color: var(--white);
-      }
-
-      .cta-btn-outline:hover {
-        background-color: var(--white);
-        color: var(--primary-dark);
-      }
-
-      .map-container {
-        flex: 1;
-        position: relative;
-        min-height: 400px;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-      }
-
-      @media (max-width: 992px) {
-        .cta-map-container {
-          flex-direction: column;
-        }
-
-        .cta-content {
-          padding: 4rem 2rem;
-          text-align: center;
-          align-items: center;
-        }
-
-        .cta-content h2:after {
-          left: 50%;
-          transform: translateX(-50%);
-        }
-
-        .map-container {
-          height: 400px;
-        }
-
-        .contact-option:hover {
-          transform: translateY(-5px);
-        }
-      }
-
-      @media (max-width: 576px) {
-        .cta-content h2 {
-          font-size: 2.2rem;
-        }
-
-        .cta-buttons {
-          flex-direction: column;
-          width: 100%;
-        }
-
-        .contact-option {
-          flex-direction: column;
-          text-align: center;
-          padding: 1.5rem 1rem;
-        }
-
-        .contact-option-icon {
-          margin-right: 0;
-          margin-bottom: 1rem;
-        }
-      }
-
-      .contact-form {
-        margin-bottom: 2.5rem;
-      }
-
-      .form-group {
-        margin-bottom: 1rem;
-      }
-
-      .contact-form input,
-      .contact-form textarea {
-        width: 100%; 
-        padding: 1rem;
-        background-color: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: var(--border-radius-sm);
-        color: var(--white);
-        transition: all 0.3s;
-      }
-
-      .contact-form input:focus,
-      .contact-form textarea:focus {
-        outline: none;
-        background-color: rgba(255, 255, 255, 0.2);
-        border-color: var(--white);
-      }
-
-      .contact-form input::placeholder,
-      .contact-form textarea::placeholder {
-        color: rgba(255, 255, 255, 0.7);
-      }
-
-      .contact-form button {
-        width: 100%;
-        margin-top: 1rem;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
         }
       }
     </style>
@@ -1733,7 +1515,7 @@
                   rgba(0, 0, 0, 0.5),
                   rgba(0, 0, 0, 0.5)
                 ),
-                url('https://cdn.pixabay.com/photo/2019/03/30/19/28/skyscraper-4091879_1280.jpg');
+                url('/api/placeholder/1200/800?text=Modern+Building');
             "
           >
             <div class="slide-content">
@@ -1752,7 +1534,7 @@
                   rgba(0, 0, 0, 0.5),
                   rgba(0, 0, 0, 0.5)
                 ),
-                url('https://cdn.pixabay.com/photo/2017/03/28/12/11/chairs-2181960_1280.jpg');
+                url('/api/placeholder/1200/800?text=Luxury+Residence');
             "
           >
             <div class="slide-content">
@@ -1771,7 +1553,7 @@
                   rgba(0, 0, 0, 0.5),
                   rgba(0, 0, 0, 0.5)
                 ),
-                url('https://cdn.pixabay.com/photo/2016/11/18/17/46/architecture-1836070_1280.jpg');
+                url('/api/placeholder/1200/800?text=Commercial+Tower');
             "
           >
             <div class="slide-content">
@@ -1800,10 +1582,6 @@
           </button>
         </div>
       </div>
-
-      <a href="#about" class="scroll-down">
-        <i class="fas fa-chevron-down"></i>
-      </a>
     </section>
 
     <!-- Company Info Section -->
@@ -1833,46 +1611,20 @@
           </p>
           <a href="#services" class="btn btn-outlined">Our Services</a>
         </div>
-        <div
-          class="company-info-image"
-          style="
-            background-image: url('https://cdn.pixabay.com/photo/2016/11/23/15/14/architect-1853491_1280.jpg');
-          "
-        ></div>
+        <div class="company-info-image"></div>
       </div>
     </section>
 
     <!-- Services Section -->
-    <section
-      class="services"
-      id="services"
-      style="
-        background-image: url('https://cdn.pixabay.com/photo/2016/11/22/19/24/archive-1850170_1280.jpg');
-        background-attachment: fixed;
-        background-size: cover;
-        background-position: center;
-        position: relative;
-      "
-    >
-      <div
-        style="
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(255, 255, 255, 0.92);
-          z-index: 1;
-        "
-      ></div>
-      <div class="section-header" style="position: relative; z-index: 2">
+    <section class="services" id="services">
+      <div class="section-header">
         <h2 class="section-title">Our Services</h2>
         <p class="section-subtitle">
           We provide comprehensive construction services tailored to meet your
           project's unique requirements and vision.
         </p>
       </div>
-      <div class="services-grid" style="position: relative; z-index: 2">
+      <div class="services-grid">
         <div class="service-card">
           <div class="service-icon">
             <i class="fas fa-hard-hat"></i>
@@ -1932,3048 +1684,415 @@
     </section>
 
     <!-- Stats Section -->
-    <section
-      class="stats"
-      id="stats"
-      style="
-        background: linear-gradient(
-            135deg,
-            rgba(46, 46, 46, 0.85) 0%,
-            rgba(74, 74, 74, 0.85) 100%
-          ),
-          url('https://cdn.pixabay.com/photo/2019/10/08/13/05/skyline-4534348_1280.jpg')
-            center/cover no-repeat fixed;
-      "
-    >
+    <section class="stats" id="stats">
       <div class="stats-content">
         <h2 class="stats-title">EVERY ANGLE COVERED</h2>
-        <p class="stats-subtitle">
-          Our numbers speak for themselves. With a track record of excellence
-          across Australia's most demanding construction projects, Dyme
-          Construction continues to deliver exceptional results year after year.
-        </p>
-
         <div class="stats-grid">
           <div class="stat-item">
-            <div class="stat-icon">
-              <i class="fas fa-building"></i>
-            </div>
-            <div class="stat-value" data-count="380">0</div>
+            <div class="stat-value">380+</div>
             <div class="stat-label">Completed Projects</div>
           </div>
           <div class="stat-item">
-            <div class="stat-icon">
-              <i class="fas fa-chart-area"></i>
-            </div>
-            <div class="stat-value" data-count="5">0</div>
-            <span class="stat-unit">m sqm+</span>
+            <div class="stat-value">5m sqm+</div>
             <div class="stat-label">Area Built</div>
           </div>
           <div class="stat-item">
-            <div class="stat-icon">
-              <i class="fas fa-hard-hat"></i>
-            </div>
-            <div class="stat-value" data-count="350">0</div>
+            <div class="stat-value">350+</div>
             <div class="stat-label">Professional Team</div>
           </div>
           <div class="stat-item">
-            <div class="stat-icon">
-              <i class="fas fa-trophy"></i>
-            </div>
-            <div class="stat-value" data-count="12">0</div>
+            <div class="stat-value">12+</div>
             <div class="stat-label">Awards Won</div>
           </div>
         </div>
       </div>
-
-      <script>
-        // Add this script at the bottom of the page or include in the main script
-        function animateStats() {
-          const statValues = document.querySelectorAll(".stat-value");
-
-          // Only animate if in viewport
-          const observer = new IntersectionObserver(
-            (entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  const target = entry.target;
-                  const countTo = parseInt(target.getAttribute("data-count"));
-                  const duration = 2000; // animation duration in ms
-                  const startTime = performance.now();
-
-                  function updateCount(currentTime) {
-                    const elapsedTime = currentTime - startTime;
-                    const progress = Math.min(elapsedTime / duration, 1);
-                    const currentCount = Math.floor(progress * countTo);
-
-                    target.textContent = currentCount;
-
-                    if (progress < 1) {
-                      requestAnimationFrame(updateCount);
-                    } else {
-                      target.textContent = countTo + "+";
-                    }
-                  }
-
-                  requestAnimationFrame(updateCount);
-                  observer.unobserve(target); // Stop observing once animation starts
-                }
-              });
-            },
-            { threshold: 0.2 }
-          );
-
-          statValues.forEach((value) => {
-            observer.observe(value);
-          });
-        }
-
-        // Call the function when page loads or on DOMContentLoaded
-        document.addEventListener("DOMContentLoaded", animateStats);
-      </script>
-
-      <style>
-        .stats {
-          padding: 8rem 0;
-          color: var(--white);
-          position: relative;
-        }
-
-        .stats-title {
-          font-size: 2.5rem;
-          margin-bottom: 4rem;
-          text-align: center;
-          position: relative;
-          width: 100%;
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          font-weight: 700;
-          letter-spacing: 1px;
-          color: var(--white);
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .stats-subtitle {
-          text-align: center;
-          color: var(--gray-300);
-          max-width: 800px;
-          margin: 0 auto 4rem;
-          font-size: 1.1rem;
-          line-height: 1.7;
-        }
-
-        .stats-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-          gap: 3.5rem;
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        .stat-item {
-          text-align: center;
-          background: rgba(0, 0, 0, 0.2);
-          padding: 2.5rem 1rem;
-          border-radius: var(--border-radius-md);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-          border: 1px solid rgba(212, 175, 55, 0.1);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .stat-item:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-          border-color: rgba(212, 175, 55, 0.3);
-        }
-
-        .stat-icon {
-          font-size: 2.5rem;
-          color: var(--primary-color);
-          margin-bottom: 1.5rem;
-        }
-
-        .stat-value {
-          font-size: 3.5rem;
-          font-weight: 700;
-          margin-bottom: 0.5rem;
-          background: linear-gradient(
-            to right,
-            var(--primary-color),
-            var(--primary-light)
-          );
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          position: relative;
-          display: inline-block;
-        }
-
-        .stat-unit {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: var(--primary-light);
-          margin-left: 0.25rem;
-        }
-
-        .stat-label {
-          font-size: 1.2rem;
-          font-weight: 500;
-          letter-spacing: 1px;
-          margin-top: 1rem;
-        }
-
-        @media (max-width: 768px) {
-          .stats-subtitle {
-            padding: 0 2rem;
-          }
-        }
-
-        /* Projects Section */
-        .projects {
-          padding: 7rem 0;
-          background-color: var(--gray-100);
-          position: relative;
-          overflow: hidden;
-        }
-
-        .projects-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-          gap: 2rem;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 2rem;
-        }
-
-        .project-card {
-          position: relative;
-          height: 350px;
-          overflow: hidden;
-          border-radius: var(--border-radius-md);
-          box-shadow: var(--box-shadow-md);
-          cursor: pointer;
-        }
-
-        .project-image {
-          width: 100%;
-          height: 100%;
-          background-size: cover;
-          background-position: center;
-          transition: transform 0.7s ease;
-        }
-
-        .project-card:hover .project-image {
-          transform: scale(1.1);
-        }
-
-        .project-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(
-            to top,
-            rgba(0, 0, 0, 0.8) 0%,
-            rgba(0, 0, 0, 0.4) 50%,
-            rgba(0, 0, 0, 0.1) 100%
-          );
-          color: var(--white);
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          align-items: center;
-          padding: 2rem;
-          opacity: 0;
-          transition: opacity 0.5s ease;
-        }
-
-        .project-card:hover .project-overlay {
-          opacity: 1;
-        }
-
-        .project-title {
-          font-size: 1.8rem;
-          margin-bottom: 1.2rem;
-          text-align: center;
-          transform: translateY(20px);
-          transition: transform 0.5s ease;
-        }
-
-        .project-card:hover .project-title {
-          transform: translateY(0);
-        }
-
-        .project-category {
-          font-size: 1rem;
-          background: linear-gradient(
-            135deg,
-            var(--primary-color) 0%,
-            var(--primary-dark) 100%
-          );
-          padding: 0.5rem 1.5rem;
-          border-radius: 30px;
-          transform: translateY(20px);
-          transition: transform 0.5s ease;
-          opacity: 0;
-        }
-
-        .project-card:hover .project-category {
-          transform: translateY(0);
-          opacity: 1;
-        }
-
-        .project-button {
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          background-color: var(--white);
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--secondary-color);
-          font-size: 1.2rem;
-          transform: translateY(-60px);
-          opacity: 0;
-          transition: all 0.5s ease;
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .project-card:hover .project-button {
-          transform: translateY(0);
-          opacity: 1;
-        }
-
-        .project-button:hover {
-          background-color: var(--primary-color);
-          color: var(--white);
-        }
-
-        /* Call to Action */
-        .cta {
-          padding: 7rem 0;
-          background: linear-gradient(
-            135deg,
-            var(--primary-color) 0%,
-            var(--primary-dark) 100%
-          );
-          text-align: center;
-          color: var(--white);
-          position: relative;
-          overflow: hidden;
-        }
-
-        .cta::before {
-          content: "";
-          position: absolute;
-          width: 200px;
-          height: 200px;
-          background-color: rgba(255, 255, 255, 0.1);
-          border-radius: 50%;
-          top: -100px;
-          right: -100px;
-        }
-
-        .cta::after {
-          content: "";
-          position: absolute;
-          width: 200px;
-          height: 200px;
-          background-color: rgba(255, 255, 255, 0.1);
-          border-radius: 50%;
-          bottom: -100px;
-          left: -100px;
-        }
-
-        .cta-content {
-          position: relative;
-          z-index: 2;
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 0 2rem;
-        }
-
-        .cta h2 {
-          font-size: 3rem;
-          margin-bottom: 2rem;
-          line-height: 1.3;
-        }
-
-        .cta-btn {
-          display: inline-block;
-          padding: 1rem 2.5rem;
-          background-color: var(--white);
-          color: var(--secondary-color);
-          text-decoration: none;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          border-radius: var(--border-radius-sm);
-          transition: all var(--transition-normal);
-          border: 2px solid var(--white);
-          box-shadow: var(--box-shadow-md);
-        }
-
-        .cta-btn:hover {
-          background-color: transparent;
-          color: var(--white);
-          transform: translateY(-5px);
-          box-shadow: var(--box-shadow-lg);
-        }
-
-        /* Footer */
-        footer {
-          background-color: var(--secondary-color);
-          color: var(--white);
-          padding: 5rem 0 0;
-          position: relative;
-        }
-
-        .footer-content {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 3rem;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 2rem;
-        }
-
-        .footer-column h3 {
-          color: var(--primary-color);
-          margin-bottom: 1.8rem;
-          font-size: 1.3rem;
-          position: relative;
-          padding-bottom: 15px;
-          display: inline-block;
-        }
-
-        .footer-column h3::after {
-          content: "";
-          position: absolute;
-          width: 40px;
-          height: 3px;
-          background-color: var(--primary-color);
-          bottom: 0;
-          left: 0;
-        }
-
-        .footer-links {
-          list-style: none;
-        }
-
-        .footer-links li {
-          margin-bottom: 1rem;
-        }
-
-        .footer-links a {
-          color: var(--gray-300);
-          text-decoration: none;
-          transition: color 0.3s, padding-left 0.3s;
-          display: inline-block;
-          position: relative;
-        }
-
-        .footer-links a:hover {
-          color: var(--primary-color);
-          padding-left: 5px;
-        }
-
-        .footer-links a::before {
-          content: "›";
-          position: absolute;
-          left: -15px;
-          opacity: 0;
-          transition: all 0.3s;
-        }
-
-        .footer-links a:hover::before {
-          opacity: 1;
-          left: -10px;
-        }
-
-        .contact-info div {
-          margin-bottom: 1.5rem;
-          display: flex;
-          align-items: flex-start;
-        }
-
-        .contact-icon {
-          width: 40px;
-          height: 40px;
-          background: linear-gradient(
-            135deg,
-            var(--primary-color) 0%,
-            var(--primary-dark) 100%
-          );
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-right: 1rem;
-          flex-shrink: 0;
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .footer-form {
-          margin-top: 1.5rem;
-        }
-
-        .footer-input {
-          width: 100%;
-          padding: 1rem;
-          margin-bottom: 1rem;
-          background-color: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: var(--border-radius-sm);
-          color: var(--white);
-          transition: all 0.3s;
-        }
-
-        .footer-input:focus {
-          outline: none;
-          background-color: rgba(255, 255, 255, 0.2);
-          border-color: var(--primary-color);
-        }
-
-        .footer-button {
-          width: 100%;
-          padding: 1rem;
-          background: linear-gradient(
-            135deg,
-            var(--primary-color) 0%,
-            var(--primary-dark) 100%
-          );
-          color: var(--white);
-          border: none;
-          border-radius: var(--border-radius-sm);
-          cursor: pointer;
-          font-weight: 600;
-          transition: all 0.3s;
-        }
-
-        .footer-button:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .copyright {
-          text-align: center;
-          padding: 2rem 0;
-          margin-top: 4rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-          font-size: 0.9rem;
-          color: var(--gray-400);
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-          position: fixed;
-          bottom: 30px;
-          right: 30px;
-          width: 50px;
-          height: 50px;
-          background-color: var(--primary-color);
-          color: var(--white);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.2rem;
-          cursor: pointer;
-          opacity: 0;
-          visibility: hidden;
-          transition: all 0.3s;
-          z-index: 99;
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .back-to-top.active {
-          opacity: 1;
-          visibility: visible;
-        }
-
-        .back-to-top:hover {
-          background-color: var(--primary-dark);
-          transform: translateY(-5px);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-          .hero-content {
-            width: 55%;
-          }
-
-          .hero-content h1 {
-            font-size: 2.5rem;
-          }
-        }
-
-        @media (max-width: 992px) {
-          html {
-            font-size: 95%;
-          }
-
-          section {
-            padding: 80px 0;
-          }
-
-          .company-info-content,
-          .services-grid,
-          .projects-grid {
-            gap: 1.5rem;
-          }
-        }
-
-        @media (max-width: 768px) {
-          html {
-            font-size: 90%;
-          }
-
-          header {
-            padding: 1rem;
-          }
-
-          .nav-toggle {
-            display: block;
-          }
-
-          nav {
-            position: fixed;
-            top: 80px;
-            left: 0;
-            width: 100%;
-            background-color: var(--secondary-color);
-            padding: 2rem 0;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            transform: translateY(-150%);
-            transition: transform 0.5s;
-            z-index: 999;
-          }
-
-          nav.active {
-            transform: translateY(0);
-          }
-
-          nav ul {
-            flex-direction: column;
-            align-items: center;
-          }
-
-          nav ul li {
-            margin: 1rem 0;
-          }
-
-          .social-icons {
-            display: none;
-          }
-
-          .slide-content {
-            width: 80%;
-            right: auto;
-            left: 50%;
-            transform: translateX(-50%);
-            clip-path: none;
-            padding: 2.5rem;
-          }
-
-          .slide.active .slide-content {
-            transform: translateX(-50%);
-          }
-
-          .company-info-content {
-            flex-direction: column;
-          }
-
-          .company-info-text,
-          .company-info-image {
-            width: 100%;
-          }
-
-          .company-info-image {
-            margin-top: 3rem;
-            height: 350px;
-          }
-
-          .stats::after {
-            width: 60%;
-          }
-
-          .stats-grid,
-          .services-grid,
-          .projects-grid {
-            grid-template-columns: 1fr;
-            max-width: 500px;
-            margin: 0 auto;
-          }
-
-          .service-card,
-          .project-card {
-            max-width: 400px;
-            margin: 0 auto;
-          }
-
-          .stat-item {
-            padding: 0 1.5rem;
-          }
-
-          .slider-nav {
-            bottom: 5%;
-          }
-
-          .slider-arrow {
-            width: 40px;
-            height: 40px;
-            font-size: 1rem;
-            margin: 0 8px;
-          }
-
-          .dot {
-            width: 10px;
-            height: 10px;
-            margin: 0 6px;
-          }
-        }
-
-        @media (max-width: 576px) {
-          html {
-            font-size: 85%;
-          }
-
-          .hero-slider {
-            height: auto;
-            padding: 120px 0 80px;
-          }
-
-          .slide-content {
-            position: relative;
-            width: 90%;
-            margin: 0 auto;
-            padding: 2rem;
-          }
-
-          .slide.active .slide-content {
-            transform: translateX(-50%);
-          }
-
-          .slider-nav {
-            bottom: 20px;
-          }
-
-          .slider-dots {
-            margin: 0 5px;
-          }
-
-          .dot {
-            width: 8px;
-            height: 8px;
-            margin: 0 4px;
-          }
-
-          .section-title {
-            font-size: 2rem;
-          }
-
-          .footer-content {
-            grid-template-columns: 1fr;
-          }
-
-          .footer-column {
-            text-align: center;
-          }
-
-          .footer-column h3::after {
-            left: 50%;
-            transform: translateX(-50%);
-          }
-
-          .contact-info div {
-            justify-content: center;
-          }
-
-          .footer-links a::before {
-            display: none;
-          }
-
-          .footer-links a:hover {
-            padding-left: 0;
-          }
-        }
-
-        /* New CTA Map Section Styles */
-        .cta-map-section {
-          padding: 0;
-          position: relative;
-          overflow: hidden;
-          color: var(--white);
-        }
-
-        .cta-map-container {
-          display: flex;
-          min-height: 600px;
-        }
-
-        .cta-content {
-          flex: 1;
-          padding: 6rem 4rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          animation: fadeIn 1s ease-out;
-        }
-
-        .cta-content h2 {
-          font-size: 3rem;
-          margin-bottom: 1.5rem;
-          line-height: 1.3;
-          position: relative;
-        }
-
-        .cta-content h2:after {
-          content: "";
-          position: absolute;
-          width: 80px;
-          height: 4px;
-          background-color: var(--white);
-          bottom: -15px;
-          left: 0;
-        }
-
-        .cta-content p {
-          font-size: 1.2rem;
-          margin-bottom: 2.5rem;
-          line-height: 1.7;
-          color: var(--white);
-          opacity: 0.9;
-          max-width: 500px;
-        }
-
-        .contact-options {
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-          margin-bottom: 2.5rem;
-        }
-
-        .contact-option {
-          display: flex;
-          align-items: center;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: var(--border-radius-md);
-          padding: 1rem;
-          transition: all var(--transition-normal);
-        }
-
-        .contact-option:hover {
-          transform: translateX(10px);
-          background: rgba(255, 255, 255, 0.2);
-        }
-
-        .contact-option-icon {
-          width: 50px;
-          height: 50px;
-          background: var(--white);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-right: 1rem;
-          color: var(--primary-dark);
-          font-size: 1.3rem;
-        }
-
-        .contact-option-info h4 {
-          font-size: 1rem;
-          margin-bottom: 0.2rem;
-          font-weight: 600;
-        }
-
-        .contact-option-info p {
-          font-size: 1rem;
-          margin-bottom: 0;
-          color: var(--white);
-          opacity: 0.9;
-        }
-
-        .cta-buttons {
-          display: flex;
-          gap: 1rem;
-          flex-wrap: wrap;
-        }
-
-        .cta-btn {
-          padding: 1rem 2rem;
-          font-size: 1rem;
-          min-width: 180px;
-          text-align: center;
-        }
-
-        .cta-btn-outline {
-          background-color: transparent;
-          border: 2px solid var(--white);
-          color: var(--white);
-        }
-
-        .cta-btn-outline:hover {
-          background-color: var(--white);
-          color: var(--primary-dark);
-        }
-
-        .map-container {
-          flex: 1;
-          position: relative;
-          min-height: 400px;
-          box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-        }
-
-        @media (max-width: 992px) {
-          .cta-map-container {
-            flex-direction: column;
-          }
-
-          .cta-content {
-            padding: 4rem 2rem;
-            text-align: center;
-            align-items: center;
-          }
-
-          .cta-content h2:after {
-            left: 50%;
-            transform: translateX(-50%);
-          }
-
-          .map-container {
-            height: 400px;
-          }
-
-          .contact-option:hover {
-            transform: translateY(-5px);
-          }
-        }
-
-        @media (max-width: 576px) {
-          .cta-content h2 {
-            font-size: 2.2rem;
-          }
-
-          .cta-buttons {
-            flex-direction: column;
-            width: 100%;
-          }
-
-          .contact-option {
-            flex-direction: column;
-            text-align: center;
-            padding: 1.5rem 1rem;
-          }
-
-          .contact-option-icon {
-            margin-right: 0;
-            margin-bottom: 1rem;
-          }
-        }
-
-        .contact-form {
-          margin-bottom: 2.5rem;
-        }
-
-        .form-group {
-          margin-bottom: 1rem;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-          width: 100%;
-          padding: 1rem;
-          background-color: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: var(--border-radius-sm);
-          color: var(--white);
-          transition: all 0.3s;
-        }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-          outline: none;
-          background-color: rgba(255, 255, 255, 0.2);
-          border-color: var(--white);
-        }
-
-        .contact-form input::placeholder,
-        .contact-form textarea::placeholder {
-          color: rgba(255, 255, 255, 0.7);
-        }
-
-        .contact-form button {
-          width: 100%;
-          margin-top: 1rem;
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-      </style>
-    </head>
-    <body>
-      <!-- Preloader -->
-      <div class="preloader">
-        <div class="loader"></div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+      <div class="section-header">
+        <h2 class="section-title">Our Projects</h2>
+        <p class="section-subtitle">
+          Explore our diverse portfolio of exceptional construction projects
+          across Australia.
+        </p>
       </div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div
+            class="project-image"
+            style="background-image: url('/api/placeholder/600/400')"
+          ></div>
+          <div class="project-overlay">
+            <h3 class="project-title">Greenland Centre</h3>
+            <span class="project-category">Commercial</span>
+          </div>
+          <a href="#" class="project-button">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+        <div class="project-card">
+          <div
+            class="project-image"
+            style="background-image: url('/api/placeholder/600/400')"
+          ></div>
+          <div class="project-overlay">
+            <h3 class="project-title">Harbour View Residences</h3>
+            <span class="project-category">Residential</span>
+          </div>
+          <a href="#" class="project-button">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+        <div class="project-card">
+          <div
+            class="project-image"
+            style="background-image: url('/api/placeholder/600/400')"
+          ></div>
+          <div class="project-overlay">
+            <h3 class="project-title">Skyline Tower</h3>
+            <span class="project-category">Mixed-Use</span>
+          </div>
+          <a href="#" class="project-button">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+        <div class="project-card">
+          <div
+            class="project-image"
+            style="background-image: url('/api/placeholder/600/400')"
+          ></div>
+          <div class="project-overlay">
+            <h3 class="project-title">Urban Plaza</h3>
+            <span class="project-category">Public Space</span>
+          </div>
+          <a href="#" class="project-button">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+        <div class="project-card">
+          <div
+            class="project-image"
+            style="background-image: url('/api/placeholder/600/400')"
+          ></div>
+          <div class="project-overlay">
+            <h3 class="project-title">Corporate Headquarters</h3>
+            <span class="project-category">Office</span>
+          </div>
+          <a href="#" class="project-button">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+        <div class="project-card">
+          <div
+            class="project-image"
+            style="background-image: url('/api/placeholder/600/400')"
+          ></div>
+          <div class="project-overlay">
+            <h3 class="project-title">Luxury Hotel</h3>
+            <span class="project-category">Hospitality</span>
+          </div>
+          <a href="#" class="project-button">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+      </div>
+    </section>
 
-      <!-- Back to Top Button -->
-      <a href="#" class="back-to-top">
-        <i class="fas fa-arrow-up"></i>
-      </a>
+    <!-- Call to Action -->
+    <section class="cta" id="contact">
+      <div class="cta-content">
+        <h2>Our Dyme team has every angle covered!</h2>
+        <a href="#" class="cta-btn">Get in Touch</a>
+      </div>
+    </section>
 
-      <!-- Header -->
-      <header id="header">
-        <a href="#" class="logo">
-          <span class="logo-icon"></span>
-          Dyme Construction
-        </a>
-        <button class="nav-toggle">
-          <i class="fas fa-bars"></i>
-        </button>
-        <nav>
-          <ul>
-            <li class="active"><a href="#home">Home</a></li>
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>About Us</h3>
+          <p>
+            We are the leading Construction Contractor in Sydney, Melbourne and
+            Brisbane. With over ten years of experience in the construction
+            industry, we specialize in large scale projects, heritage,
+            commercial, residential and detailed construction.
+          </p>
+        </div>
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
             <li><a href="#about">About Us</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#team">Our People</a></li>
             <li><a href="#contact">Contact Us</a></li>
           </ul>
-        </nav>
-        <div class="social-icons">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
         </div>
-      </header>
-
-      <!-- Hero Section with Internal Slider -->
-      <section class="hero" id="home">
-        <div class="hero-slider">
-          <div class="slides-container">
-            <div
-              class="slide active"
-              style="
-                background-image: linear-gradient(
-                    rgba(0, 0, 0, 0.5),
-                    rgba(0, 0, 0, 0.5)
-                  ),
-                  url('https://cdn.pixabay.com/photo/2019/03/30/19/28/skyscraper-4091879_1280.jpg');
-              "
-            >
-              <div class="slide-content">
-                <h1>Greenland Centre Sydney</h1>
-                <p>
-                  Excellence in construction for modern architectural marvels.
-                  Building the future with precision, quality, and innovation.
-                </p>
-                <a href="#about" class="btn">Discover More</a>
-              </div>
+        <div class="footer-column">
+          <h3>Useful Links</h3>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms and Conditions</a></li>
+            <li><a href="#">Disclaimer</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Contact with us</h3>
+          <div class="contact-info">
+            <div>
+              <span class="contact-icon">
+                <i class="fas fa-phone-alt"></i>
+              </span>
+              <span>(02) 9896 7727</span>
             </div>
-            <div
-              class="slide"
-              style="
-                background-image: linear-gradient(
-                    rgba(0, 0, 0, 0.5),
-                    rgba(0, 0, 0, 0.5)
-                  ),
-                  url('https://cdn.pixabay.com/photo/2017/03/28/12/11/chairs-2181960_1280.jpg');
-              "
-            >
-              <div class="slide-content">
-                <h1>Luxury Residential Projects</h1>
-                <p>
-                  Creating spaces that blend comfort with sophistication. Premium
-                  living experiences designed with meticulous attention to detail.
-                </p>
-                <a href="#projects" class="btn">View Portfolio</a>
-              </div>
+            <div>
+              <span class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </span>
+              <span>myprojects@dymeconstruction.com.au</span>
             </div>
-            <div
-              class="slide"
-              style="
-                background-image: linear-gradient(
-                    rgba(0, 0, 0, 0.5),
-                    rgba(0, 0, 0, 0.5)
-                  ),
-                  url('https://cdn.pixabay.com/photo/2016/11/18/17/46/architecture-1836070_1280.jpg');
-              "
-            >
-              <div class="slide-content">
-                <h1>Commercial Excellence</h1>
-                <p>
-                  Delivering landmark commercial structures that redefine urban
-                  landscapes and empower businesses to thrive.
-                </p>
-                <a href="#services" class="btn">Our Expertise</a>
-              </div>
+            <div>
+              <span class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </span>
+              <span>L7, 111 Elizabeth St, SYDNEY NSW 2000</span>
             </div>
           </div>
-
-          <!-- Slider Navigation -->
-          <div class="slider-nav">
-            <button class="slider-arrow prev">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <div class="slider-dots">
-              <span class="dot active" data-slide="0"></span>
-              <span class="dot" data-slide="1"></span>
-              <span class="dot" data-slide="2"></span>
-            </div>
-            <button class="slider-arrow next">
-              <i class="fas fa-chevron-right"></i>
-            </button>
+          <div class="footer-form">
+            <input type="email" placeholder="Your Email" class="footer-input" />
+            <button type="submit" class="footer-button">Subscribe</button>
           </div>
         </div>
+      </div>
+      <div class="copyright">© Copyright 2025 - DYME CONSTRUCTION PTY LTD</div>
+    </footer>
 
-        <a href="#about" class="scroll-down">
-          <i class="fas fa-chevron-down"></i>
-        </a>
-      </section>
+    <!-- JavaScript -->
+    <script>
+      // Preloader
+      window.addEventListener("load", function () {
+        const preloader = document.querySelector(".preloader");
+        preloader.classList.add("fade-out");
+        setTimeout(() => {
+          preloader.style.display = "none";
+        }, 500);
+      });
 
-      <!-- Company Info Section -->
-      <section class="company-info" id="about">
-        <div class="company-info-content">
-          <div class="company-info-text">
-            <h2>THE DYME COVER</h2>
-            <p>
-              Dyme Construction prides itself on illustrious projects by
-              delivering best-in-class building, stone, and facade finishes. The
-              Dyme Construction team is known for their all-encompassing delivery
-              of projects, from procurement to installation, on Tier 1
-              developments across Australia.
-            </p>
-            <p>
-              With our established industry networks and long-standing supplier
-              relationships, we create a platform to import materials globally for
-              our client's specific and tailored project requirements.
-            </p>
-            <p>
-              Dyme Construction has a history of globally importing unique stones
-              and materials directly from their quarries. Our factory and
-              installation teams are robust, encouraged and empowered with long
-              company tenures, established through a robust, passionate and
-              empowering culture, establishing the foundation of Dyme
-              Construction.
-            </p>
-            <a href="#services" class="btn btn-outlined">Our Services</a>
-          </div>
-          <div
-            class="company-info-image"
-            style="
-              background-image: url('https://cdn.pixabay.com/photo/2016/11/23/15/14/architect-1853491_1280.jpg');
-            "
-          ></div>
-        </div>
-      </section>
+      // Sticky Header
+      window.addEventListener("scroll", function () {
+        const header = document.getElementById("header");
+        if (window.scrollY > 50) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
 
-      <!-- Services Section -->
-      <section
-        class="services"
-        id="services"
-        style="
-          background-image: url('https://cdn.pixabay.com/photo/2016/11/22/19/24/archive-1850170_1280.jpg');
-          background-attachment: fixed;
-          background-size: cover;
-          background-position: center;
-          position: relative;
-        "
-      >
-        <div
-          style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.92);
-            z-index: 1;
-          "
-        ></div>
-        <div class="section-header" style="position: relative; z-index: 2">
-          <h2 class="section-title">Our Services</h2>
-          <p class="section-subtitle">
-            We provide comprehensive construction services tailored to meet your
-            project's unique requirements and vision.
-          </p>
-        </div>
-        <div class="services-grid" style="position: relative; z-index: 2">
-          <div class="service-card">
-            <div class="service-icon">
-              <i class="fas fa-hard-hat"></i>
-            </div>
-            <h3>Engineering Solutions</h3>
-            <p>
-              We meet your specific project requirements. We'll work in accordance
-              to your specific needs, requirements and processes to deliver
-              exceptional results.
-            </p>
-            <a href="#" class="read-more"
-              >Learn More <i class="fas fa-arrow-right"></i
-            ></a>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">
-              <i class="fas fa-truck-loading"></i>
-            </div>
-            <h3>Procurement</h3>
-            <p>
-              Direct procurement of all materials from overseas. Allocated
-              logistic and quality control department to ensure client
-              expectations are met and exceeded.
-            </p>
-            <a href="#" class="read-more"
-              >Learn More <i class="fas fa-arrow-right"></i
-            ></a>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">
-              <i class="fas fa-comments"></i>
-            </div>
-            <h3>Consultation</h3>
-            <p>
-              We recognize your business vision. We take the time to deeply
-              understand your business' vision for each project to ensure perfect
-              alignment.
-            </p>
-            <a href="#" class="read-more"
-              >Learn More <i class="fas fa-arrow-right"></i
-            ></a>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">
-              <i class="fas fa-tools"></i>
-            </div>
-            <h3>Installation</h3>
-            <p>
-              Dedicated and qualified construction installers ready to deliver any
-              type of project with precision, expertise and attention to detail.
-            </p>
-            <a href="#" class="read-more"
-              >Learn More <i class="fas fa-arrow-right"></i
-            ></a>
-          </div>
-        </div>
-      </section>
+        // Back to Top Button
+        const backToTop = document.querySelector(".back-to-top");
+        if (window.scrollY > 300) {
+          backToTop.classList.add("active");
+        } else {
+          backToTop.classList.remove("active");
+        }
+      });
 
-      <!-- Stats Section -->
-      <section
-        class="stats"
-        id="stats"
-        style="
-          background: linear-gradient(
-              135deg,
-              rgba(46, 46, 46, 0.85) 0%,
-              rgba(74, 74, 74, 0.85) 100%
-            ),
-            url('https://cdn.pixabay.com/photo/2019/10/08/13/05/skyline-4534348_1280.jpg')
-              center/cover no-repeat fixed;
-        "
-      >
-        <div class="stats-content">
-          <h2 class="stats-title">EVERY ANGLE COVERED</h2>
-          <p class="stats-subtitle">
-            Our numbers speak for themselves. With a track record of excellence
-            across Australia's most demanding construction projects, Dyme
-            Construction continues to deliver exceptional results year after year.
-          </p>
+      // Mobile Menu Toggle
+      const navToggle = document.querySelector(".nav-toggle");
+      const nav = document.querySelector("nav");
 
-          <div class="stats-grid">
-            <div class="stat-item">
-              <div class="stat-icon">
-                <i class="fas fa-building"></i>
-              </div>
-              <div class="stat-value" data-count="380">0</div>
-              <div class="stat-label">Completed Projects</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-icon">
-                <i class="fas fa-chart-area"></i>
-              </div>
-              <div class="stat-value" data-count="5">0</div>
-              <span class="stat-unit">m sqm+</span>
-              <div class="stat-label">Area Built</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-icon">
-                <i class="fas fa-hard-hat"></i>
-              </div>
-              <div class="stat-value" data-count="350">0</div>
-              <div class="stat-label">Professional Team</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-icon">
-                <i class="fas fa-trophy"></i>
-              </div>
-              <div class="stat-value" data-count="12">0</div>
-              <div class="stat-label">Awards Won</div>
-            </div>
-          </div>
-        </div>
+      navToggle.addEventListener("click", function () {
+        nav.classList.toggle("active");
+      });
 
-        <script>
-          // Add this script at the bottom of the page or include in the main script
-          function animateStats() {
-            const statValues = document.querySelectorAll(".stat-value");
+      // Close menu when clicking on a nav link
+      const navLinks = document.querySelectorAll("nav ul li a");
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          nav.classList.remove("active");
+        });
+      });
 
-            // Only animate if in viewport
-            const observer = new IntersectionObserver(
-              (entries) => {
-                entries.forEach((entry) => {
-                  if (entry.isIntersecting) {
-                    const target = entry.target;
-                    const countTo = parseInt(target.getAttribute("data-count"));
-                    const duration = 2000; // animation duration in ms
-                    const startTime = performance.now();
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute("href");
+          if (targetId === "#") return;
 
-                    function updateCount(currentTime) {
-                      const elapsedTime = currentTime - startTime;
-                      const progress = Math.min(elapsedTime / duration, 1);
-                      const currentCount = Math.floor(progress * countTo);
-
-                      target.textContent = currentCount;
-
-                      if (progress < 1) {
-                        requestAnimationFrame(updateCount);
-                      } else {
-                        target.textContent = countTo + "+";
-                      }
-                    }
-
-                    requestAnimationFrame(updateCount);
-                    observer.unobserve(target); // Stop observing once animation starts
-                  }
-                });
-              },
-              { threshold: 0.2 }
-            );
-
-            statValues.forEach((value) => {
-              observer.observe(value);
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 70,
+              behavior: "smooth",
             });
           }
+        });
+      });
 
-          // Call the function when page loads or on DOMContentLoaded
-          document.addEventListener("DOMContentLoaded", animateStats);
-        </script>
+      // Active menu item on scroll
+      const sections = document.querySelectorAll("section");
+      window.addEventListener("scroll", () => {
+        let current = "";
 
-        <style>
-          .stats {
-            padding: 8rem 0;
-            color: var(--white);
-            position: relative;
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+
+          if (window.scrollY >= sectionTop - 200) {
+            current = section.getAttribute("id");
           }
+        });
 
-          .stats-title {
-            font-size: 2.5rem;
-            margin-bottom: 4rem;
-            text-align: center;
-            position: relative;
-            width: 100%;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--white);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        navLinks.forEach((link) => {
+          link.parentElement.classList.remove("active");
+          if (link.getAttribute("href") === `#${current}`) {
+            link.parentElement.classList.add("active");
           }
+        });
+      });
 
-          .stats-subtitle {
-            text-align: center;
-            color: var(--gray-300);
-            max-width: 800px;
-            margin: 0 auto 4rem;
-            font-size: 1.1rem;
-            line-height: 1.7;
+      // Hero Slider
+      const slides = document.querySelectorAll(".slide");
+      const dots = document.querySelectorAll(".dot");
+      const prevBtn = document.querySelector(".slider-arrow.prev");
+      const nextBtn = document.querySelector(".slider-arrow.next");
+      let currentSlide = 0;
+      let slideInterval;
+      const intervalTime = 5000;
+
+      // Initialize slider
+      function startSlider() {
+        slideInterval = setInterval(() => {
+          nextSlide();
+        }, intervalTime);
+      }
+
+      function showSlide(n) {
+        // Remove active class from all slides
+        slides.forEach((slide) => {
+          slide.classList.remove("active");
+        });
+
+        // Remove active class from all dots
+        dots.forEach((dot) => {
+          dot.classList.remove("active");
+        });
+
+        // Set the current slide
+        currentSlide = (n + slides.length) % slides.length;
+
+        // Add active class to current slide and dot
+        slides[currentSlide].classList.add("active");
+        dots[currentSlide].classList.add("active");
+      }
+
+      function nextSlide() {
+        showSlide(currentSlide + 1);
+      }
+
+      function prevSlide() {
+        showSlide(currentSlide - 1);
+      }
+
+      // Event listeners for slider controls
+      prevBtn.addEventListener("click", () => {
+        clearInterval(slideInterval);
+        prevSlide();
+        startSlider();
+      });
+
+      nextBtn.addEventListener("click", () => {
+        clearInterval(slideInterval);
+        nextSlide();
+        startSlider();
+      });
+
+      dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+          clearInterval(slideInterval);
+          showSlide(index);
+          startSlider();
+        });
+      });
+
+      // Handle touch events for the slider
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      const slider = document.querySelector(".hero-slider");
+
+      slider.addEventListener(
+        "touchstart",
+        (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        },
+        false
+      );
+
+      slider.addEventListener(
+        "touchend",
+        (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        },
+        false
+      );
+
+      function handleSwipe() {
+        // Determine direction of swipe
+        if (touchEndX < touchStartX - 50) {
+          // Swipe left (next)
+          clearInterval(slideInterval);
+          nextSlide();
+          startSlider();
+        } else if (touchEndX > touchStartX + 50) {
+          // Swipe right (prev)
+          clearInterval(slideInterval);
+          prevSlide();
+          startSlider();
+        }
+      }
+
+      // Initialize the slider
+      startSlider();
+
+      // Animation on scroll (simple version)
+      function animateOnScroll() {
+        const elements = document.querySelectorAll(
+          ".service-card, .stat-item, .project-card"
+        );
+
+        elements.forEach((element) => {
+          const elementPosition = element.getBoundingClientRect().top;
+          const screenHeight = window.innerHeight;
+
+          if (elementPosition < screenHeight * 0.8) {
+            element.style.opacity = "1";
+            element.style.transform = "translateY(0)";
           }
-
-          .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 3.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-          }
-
-          .stat-item {
-            text-align: center;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 2.5rem 1rem;
-            border-radius: var(--border-radius-md);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-          }
-
-          .stat-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            border-color: rgba(212, 175, 55, 0.3);
-          }
-
-          .stat-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-          }
-
-          .stat-value {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(
-              to right,
-              var(--primary-color),
-              var(--primary-light)
-            );
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-            display: inline-block;
-          }
-
-          .stat-unit {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-light);
-            margin-left: 0.25rem;
-          }
-
-          .stat-label {
-            font-size: 1.2rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            margin-top: 1rem;
-          }
-
-          @media (max-width: 768px) {
-            .stats-subtitle {
-              padding: 0 2rem;
-            }
-          }
-
-          /* Contact & Map Section */
-          .cta-map-section {
-            padding: 0;
-            position: relative;
-            overflow: hidden;
-            color: var(--white);
-          }
-
-          .cta-map-container {
-            display: flex;
-            min-height: 600px;
-          }
-
-          .cta-content {
-            flex: 1;
-            padding: 6rem 4rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            animation: fadeIn 1s ease-out;
-          }
-
-          .cta-content h2 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.3;
-            position: relative;
-          }
-
-          .cta-content h2:after {
-            content: "";
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background-color: var(--white);
-            bottom: -15px;
-            left: 0;
-          }
-
-          .cta-content p {
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-            line-height: 1.7;
-            color: var(--white);
-            opacity: 0.9;
-            max-width: 500px;
-          }
-
-          .contact-options {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-          }
-
-          .contact-option {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: var(--border-radius-md);
-            padding: 1rem;
-            transition: all var(--transition-normal);
-          }
-
-          .contact-option:hover {
-            transform: translateX(10px);
-            background: rgba(255, 255, 255, 0.2);
-          }
-
-          .contact-option-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            color: var(--primary-dark);
-            font-size: 1.3rem;
-          }
-
-          .contact-option-info h4 {
-            font-size: 1rem;
-            margin-bottom: 0.2rem;
-            font-weight: 600;
-          }
-
-          .contact-option-info p {
-            font-size: 1rem;
-            margin-bottom: 0;
-            color: var(--white);
-            opacity: 0.9;
-          }
-
-          .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-          }
-
-          .cta-btn {
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            min-width: 180px;
-            text-align: center;
-          }
-
-          .cta-btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--white);
-            color: var(--white);
-          }
-
-          .cta-btn-outline:hover {
-            background-color: var(--white);
-            color: var(--primary-dark);
-          }
-
-          .map-container {
-            flex: 1;
-            position: relative;
-            min-height: 400px;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-          }
-
-          @media (max-width: 992px) {
-            .cta-map-container {
-              flex-direction: column;
-            }
-
-            .cta-content {
-              padding: 4rem 2rem;
-              text-align: center;
-              align-items: center;
-            }
-
-            .cta-content h2:after {
-              left: 50%;
-              transform: translateX(-50%);
-            }
-
-            .map-container {
-              height: 400px;
-            }
-
-            .contact-option:hover {
-              transform: translateY(-5px);
-            }
-          }
-
-          @media (max-width: 576px) {
-            .cta-content h2 {
-              font-size: 2.2rem;
-            }
-
-            .cta-buttons {
-              flex-direction: column;
-              width: 100%;
-            }
-
-            .contact-option {
-              flex-direction: column;
-              text-align: center;
-              padding: 1.5rem 1rem;
-            }
-
-            .contact-option-icon {
-              margin-right: 0;
-              margin-bottom: 1rem;
-            }
-          }
-
-          .contact-form {
-            margin-bottom: 2.5rem;
-          }
-
-          .form-group {
-            margin-bottom: 1rem;
-          }
-
-          .contact-form input,
-          .contact-form textarea {
-            width: 100%;
-            padding: 1rem;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: var(--border-radius-sm);
-            color: var(--white);
-            transition: all 0.3s;
-          }
-
-          .contact-form input:focus,
-          .contact-form textarea:focus {
-            outline: none;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-color: var(--white);
-          }
-
-          .contact-form input::placeholder,
-          .contact-form textarea::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-          }
-
-          .contact-form button {
-            width: 100%;
-            margin-top: 1rem;
-          }
-
-          @keyframes fadeIn {
-            from {
-              opacity: 0;
-            }
-            to {
-              opacity: 1;
-            }
-          }
-        </style>
-      </head>
-      <body>
-        <!-- Preloader -->
-        <div class="preloader">
-          <div class="loader"></div>
-        </div>
-
-        <!-- Back to Top Button -->
-        <a href="#" class="back-to-top">
-          <i class="fas fa-arrow-up"></i>
-        </a>
-
-        <!-- Header -->
-        <header id="header">
-          <a href="#" class="logo">
-            <span class="logo-icon"></span>
-            Dyme Construction
-          </a>
-          <button class="nav-toggle">
-            <i class="fas fa-bars"></i>
-          </button>
-          <nav>
-            <ul>
-              <li class="active"><a href="#home">Home</a></li>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#projects">Projects</a></li>
-              <li><a href="#team">Our People</a></li>
-              <li><a href="#contact">Contact Us</a></li>
-            </ul>
-          </nav>
-          <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </header>
-
-        <!-- Hero Section with Internal Slider -->
-        <section class="hero" id="home">
-          <div class="hero-slider">
-            <div class="slides-container">
-              <div
-                class="slide active"
-                style="
-                  background-image: linear-gradient(
-                      rgba(0, 0, 0, 0.5),
-                      rgba(0, 0, 0, 0.5)
-                    ),
-                    url('https://cdn.pixabay.com/photo/2019/03/30/19/28/skyscraper-4091879_1280.jpg');
-                "
-              >
-                <div class="slide-content">
-                  <h1>Greenland Centre Sydney</h1>
-                  <p>
-                    Excellence in construction for modern architectural marvels.
-                    Building the future with precision, quality, and innovation.
-                  </p>
-                  <a href="#about" class="btn">Discover More</a>
-                </div>
-              </div>
-              <div
-                class="slide"
-                style="
-                  background-image: linear-gradient(
-                      rgba(0, 0, 0, 0.5),
-                      rgba(0, 0, 0, 0.5)
-                    ),
-                    url('https://cdn.pixabay.com/photo/2017/03/28/12/11/chairs-2181960_1280.jpg');
-                "
-              >
-                <div class="slide-content">
-                  <h1>Luxury Residential Projects</h1>
-                  <p>
-                    Creating spaces that blend comfort with sophistication. Premium
-                    living experiences designed with meticulous attention to detail.
-                  </p>
-                  <a href="#projects" class="btn">View Portfolio</a>
-                </div>
-              </div>
-              <div
-                class="slide"
-                style="
-                  background-image: linear-gradient(
-                      rgba(0, 0, 0, 0.5),
-                      rgba(0, 0, 0, 0.5)
-                    ),
-                    url('https://cdn.pixabay.com/photo/2016/11/18/17/46/architecture-1836070_1280.jpg');
-                "
-              >
-                <div class="slide-content">
-                  <h1>Commercial Excellence</h1>
-                  <p>
-                    Delivering landmark commercial structures that redefine urban
-                    landscapes and empower businesses to thrive.
-                  </p>
-                  <a href="#services" class="btn">Our Expertise</a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Slider Navigation -->
-            <div class="slider-nav">
-              <button class="slider-arrow prev">
-                <i class="fas fa-chevron-left"></i>
-              </button>
-              <div class="slider-dots">
-                <span class="dot active" data-slide="0"></span>
-                <span class="dot" data-slide="1"></span>
-                <span class="dot" data-slide="2"></span>
-              </div>
-              <button class="slider-arrow next">
-                <i class="fas fa-chevron-right"></i>
-              </button>
-            </div>
-          </div>
-
-          <a href="#about" class="scroll-down">
-            <i class="fas fa-chevron-down"></i>
-          </a>
-        </section>
-
-        <!-- Company Info Section -->
-        <section class="company-info" id="about">
-          <div class="company-info-content">
-            <div class="company-info-text">
-              <h2>THE DYME COVER</h2>
-              <p>
-                Dyme Construction prides itself on illustrious projects by
-                delivering best-in-class building, stone, and facade finishes. The
-                Dyme Construction team is known for their all-encompassing delivery
-                of projects, from procurement to installation, on Tier 1
-                developments across Australia.
-              </p>
-              <p>
-                With our established industry networks and long-standing supplier
-                relationships, we create a platform to import materials globally for
-                our client's specific and tailored project requirements.
-              </p>
-              <p>
-                Dyme Construction has a history of globally importing unique stones
-                and materials directly from their quarries. Our factory and
-                installation teams are robust, encouraged and empowered with long
-                company tenures, established through a robust, passionate and
-                empowering culture, establishing the foundation of Dyme
-                Construction.
-              </p>
-              <a href="#services" class="btn btn-outlined">Our Services</a>
-            </div>
-            <div
-              class="company-info-image"
-              style="
-                background-image: url('https://cdn.pixabay.com/photo/2016/11/23/15/14/architect-1853491_1280.jpg');
-              "
-            ></div>
-          </div>
-        </section>
-
-        <!-- Services Section -->
-        <section
-          class="services"
-          id="services"
-          style="
-            background-image: url('https://cdn.pixabay.com/photo/2016/11/22/19/24/archive-1850170_1280.jpg');
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-          "
-        >
-          <div
-            style="
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              background-color: rgba(255, 255, 255, 0.92);
-              z-index: 1;
-            "
-          ></div>
-          <div class="section-header" style="position: relative; z-index: 2">
-            <h2 class="section-title">Our Services</h2>
-            <p class="section-subtitle">
-              We provide comprehensive construction services tailored to meet your
-              project's unique requirements and vision.
-            </p>
-          </div>
-          <div class="services-grid" style="position: relative; z-index: 2">
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-hard-hat"></i>
-              </div>
-              <h3>Engineering Solutions</h3>
-              <p>
-                We meet your specific project requirements. We'll work in accordance
-                to your specific needs, requirements and processes to deliver
-                exceptional results.
-              </p>
-              <a href="#" class="read-more"
-                >Learn More <i class="fas fa-arrow-right"></i
-              ></a>
-            </div>
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-truck-loading"></i>
-              </div>
-              <h3>Procurement</h3>
-              <p>
-                Direct procurement of all materials from overseas. Allocated
-                logistic and quality control department to ensure client
-                expectations are met and exceeded.
-              </p>
-              <a href="#" class="read-more"
-                >Learn More <i class="fas fa-arrow-right"></i
-              ></a>
-            </div>
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-comments"></i>
-              </div>
-              <h3>Consultation</h3>
-              <p>
-                We recognize your business vision. We take the time to deeply
-                understand your business' vision for each project to ensure perfect
-                alignment.
-              </p>
-              <a href="#" class="read-more"
-                >Learn More <i class="fas fa-arrow-right"></i
-              ></a>
-            </div>
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="fas fa-tools"></i>
-              </div>
-              <h3>Installation</h3>
-              <p>
-                Dedicated and qualified construction installers ready to deliver any
-                type of project with precision, expertise and attention to detail.
-              </p>
-              <a href="#" class="read-more"
-                >Learn More <i class="fas fa-arrow-right"></i
-              ></a>
-            </div>
-          </div>
-        </section>
-
-        <!-- Stats Section -->
-        <section
-          class="stats"
-          id="stats"
-          style="
-            background: linear-gradient(
-                135deg,
-                rgba(46, 46, 46, 0.85) 0%,
-                rgba(74, 74, 74, 0.85) 100%
-              ),
-              url('https://cdn.pixabay.com/photo/2019/10/08/13/05/skyline-4534348_1280.jpg')
-                center/cover no-repeat fixed;
-          "
-        >
-          <div class="stats-content">
-            <h2 class="stats-title">EVERY ANGLE COVERED</h2>
-            <p class="stats-subtitle">
-              Our numbers speak for themselves. With a track record of excellence
-              across Australia's most demanding construction projects, Dyme
-              Construction continues to deliver exceptional results year after year.
-            </p>
-
-            <div class="stats-grid">
-              <div class="stat-item">
-                <div class="stat-icon">
-                  <i class="fas fa-building"></i>
-                </div>
-                <div class="stat-value" data-count="380">0</div>
-                <div class="stat-label">Completed Projects</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-icon">
-                  <i class="fas fa-chart-area"></i>
-                </div>
-                <div class="stat-value" data-count="5">0</div>
-                <span class="stat-unit">m sqm+</span>
-                <div class="stat-label">Area Built</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-icon">
-                  <i class="fas fa-hard-hat"></i>
-                </div>
-                <div class="stat-value" data-count="350">0</div>
-                <div class="stat-label">Professional Team</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-icon">
-                  <i class="fas fa-trophy"></i>
-                </div>
-                <div class="stat-value" data-count="12">0</div>
-                <div class="stat-label">Awards Won</div>
-              </div>
-            </div>
-          </div>
-
-          <script>
-            // Add this script at the bottom of the page or include in the main script
-            function animateStats() {
-              const statValues = document.querySelectorAll(".stat-value");
-
-              // Only animate if in viewport
-              const observer = new IntersectionObserver(
-                (entries) => {
-                  entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                      const target = entry.target;
-                      const countTo = parseInt(target.getAttribute("data-count"));
-                      const duration = 2000; // animation duration in ms
-                      const startTime = performance.now();
-
-                      function updateCount(currentTime) {
-                        const elapsedTime = currentTime - startTime;
-                        const progress = Math.min(elapsedTime / duration, 1);
-                        const currentCount = Math.floor(progress * countTo);
-
-                        target.textContent = currentCount;
-
-                        if (progress < 1) {
-                          requestAnimationFrame(updateCount);
-                        } else {
-                          target.textContent = countTo + "+";
-                        }
-                      }
-
-                      requestAnimationFrame(updateCount);
-                      observer.unobserve(target); // Stop observing once animation starts
-                    }
-                  });
-                },
-                { threshold: 0.2 }
-              );
-
-              statValues.forEach((value) => {
-                observer.observe(value);
-              });
-            }
-
-            // Call the function when page loads or on DOMContentLoaded
-            document.addEventListener("DOMContentLoaded", animateStats);
-          </script>
-
-          <style>
-            .stats {
-              padding: 8rem 0;
-              color: var(--white);
-              position: relative;
-            }
-
-            .stats-title {
-              font-size: 2.5rem;
-              margin-bottom: 4rem;
-              text-align: center;
-              position: relative;
-              width: 100%;
-              display: block;
-              margin-left: auto;
-              margin-right: auto;
-              font-weight: 700;
-              letter-spacing: 1px;
-              color: var(--white);
-              text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            }
-
-            .stats-subtitle {
-              text-align: center;
-              color: var(--gray-300);
-              max-width: 800px;
-              margin: 0 auto 4rem;
-              font-size: 1.1rem;
-              line-height: 1.7;
-            }
-
-            .stats-grid {
-              display: grid;
-              grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-              gap: 3.5rem;
-              max-width: 1200px;
-              margin: 0 auto;
-            }
-
-            .stat-item {
-              text-align: center;
-              background: rgba(0, 0, 0, 0.2);
-              padding: 2.5rem 1rem;
-              border-radius: var(--border-radius-md);
-              box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-              border: 1px solid rgba(212, 175, 55, 0.1);
-              transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-
-            .stat-item:hover {
-              transform: translateY(-10px);
-              box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-              border-color: rgba(212, 175, 55, 0.3);
-            }
-
-            .stat-icon {
-              font-size: 2.5rem;
-              color: var(--primary-color);
-              margin-bottom: 1.5rem;
-            }
-
-            .stat-value {
-              font-size: 3.5rem;
-              font-weight: 700;
-              margin-bottom: 0.5rem;
-              background: linear-gradient(
-                to right,
-                var(--primary-color),
-                var(--primary-light)
-              );
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              background-clip: text;
-              position: relative;
-              display: inline-block;
-            }
-
-            .stat-unit {
-              font-size: 1.5rem;
-              font-weight: 700;
-              color: var(--primary-light);
-              margin-left: 0.25rem;
-            }
-
-            .stat-label {
-              font-size: 1.2rem;
-              font-weight: 500;
-              letter-spacing: 1px;
-              margin-top: 1rem;
-            }
-
-            @media (max-width: 768px) {
-              .stats-subtitle {
-                padding: 0 2rem;
-              }
-            }
-
-            /* Contact & Map Section */
-            .cta-map-section {
-              padding: 0;
-              position: relative;
-              overflow: hidden;
-              color: var(--white);
-            }
-
-            .cta-map-container {
-              display: flex;
-              min-height: 600px;
-            }
-
-            .cta-content {
-              flex: 1;
-              padding: 6rem 4rem;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              animation: fadeIn 1s ease-out;
-            }
-
-            .cta-content h2 {
-              font-size: 3rem;
-              margin-bottom: 1.5rem;
-              line-height: 1.3;
-              position: relative;
-            }
-
-            .cta-content h2:after {
-              content: "";
-              position: absolute;
-              width: 80px;
-              height: 4px;
-              background-color: var(--white);
-              bottom: -15px;
-              left: 0;
-            }
-
-            .cta-content p {
-              font-size: 1.2rem;
-              margin-bottom: 2.5rem;
-              line-height: 1.7;
-              color: var(--white);
-              opacity: 0.9;
-              max-width: 500px;
-            }
-
-            .contact-options {
-              display: flex;
-              flex-direction: column;
-              gap: 1.5rem;
-              margin-bottom: 2.5rem;
-            }
-
-            .contact-option {
-              display: flex;
-              align-items: center;
-              background: rgba(255, 255, 255, 0.1);
-              border-radius: var(--border-radius-md);
-              padding: 1rem;
-              transition: all var(--transition-normal);
-            }
-
-            .contact-option:hover {
-              transform: translateX(10px);
-              background: rgba(255, 255, 255, 0.2);
-            }
-
-            .contact-option-icon {
-              width: 50px;
-              height: 50px;
-              background: var(--white);
-              border-radius: 50%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin-right: 1rem;
-              color: var(--primary-dark);
-              font-size: 1.3rem;
-            }
-
-            .contact-option-info h4 {
-              font-size: 1rem;
-              margin-bottom: 0.2rem;
-              font-weight: 600;
-            }
-
-            .contact-option-info p {
-              font-size: 1rem;
-              margin-bottom: 0;
-              color: var(--white);
-              opacity: 0.9;
-            }
-
-            .cta-buttons {
-              display: flex;
-              gap: 1rem;
-              flex-wrap: wrap;
-            }
-
-            .cta-btn {
-              padding: 1rem 2rem;
-              font-size: 1rem;
-              min-width: 180px;
-              text-align: center;
-            }
-
-            .cta-btn-outline {
-              background-color: transparent;
-              border: 2px solid var(--white);
-              color: var(--white);
-            }
-
-            .cta-btn-outline:hover {
-              background-color: var(--white);
-              color: var(--primary-dark);
-            }
-
-            .map-container {
-              flex: 1;
-              position: relative;
-              min-height: 400px;
-              box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            }
-
-            @media (max-width: 992px) {
-              .cta-map-container {
-                flex-direction: column;
-              }
-
-              .cta-content {
-                padding: 4rem 2rem;
-                text-align: center;
-                align-items: center;
-              }
-
-              .cta-content h2:after {
-                left: 50%;
-                transform: translateX(-50%);
-              }
-
-              .map-container {
-                height: 400px;
-              }
-
-              .contact-option:hover {
-                transform: translateY(-5px);
-              }
-            }
-
-            @media (max-width: 576px) {
-              .cta-content h2 {
-                font-size: 2.2rem;
-              }
-
-              .cta-buttons {
-                flex-direction: column;
-                width: 100%;
-              }
-
-              .contact-option {
-                flex-direction: column;
-                text-align: center;
-                padding: 1.5rem 1rem;
-              }
-
-              .contact-option-icon {
-                margin-right: 0;
-                margin-bottom: 1rem;
-              }
-            }
-
-            .contact-form {
-              margin-bottom: 2.5rem;
-            }
-
-            .form-group {
-              margin-bottom: 1rem;
-            }
-
-            .contact-form input,
-            .contact-form textarea {
-              width: 100%;
-              padding: 1rem;
-              background-color: rgba(255, 255, 255, 0.1);
-              border: 1px solid rgba(255, 255, 255, 0.2);
-              border-radius: var(--border-radius-sm);
-              color: var(--white);
-              transition: all 0.3s;
-            }
-
-            .contact-form input:focus,
-            .contact-form textarea:focus {
-              outline: none;
-              background-color: rgba(255, 255, 255, 0.2);
-              border-color: var(--white);
-            }
-
-            .contact-form input::placeholder,
-            .contact-form textarea::placeholder {
-              color: rgba(255, 255, 255, 0.7);
-            }
-
-            .contact-form button {
-              width: 100%;
-              margin-top: 1rem;
-            }
-
-            @keyframes fadeIn {
-              from {
-                opacity: 0;
-              }
-              to {
-                opacity: 1;
-              }
-            }
-          </style>
-        </head>
-        <body>
-          <!-- Preloader -->
-          <div class="preloader">
-            <div class="loader"></div>
-          </div>
-
-          <!-- Back to Top Button -->
-          <a href="#" class="back-to-top">
-            <i class="fas fa-arrow-up"></i>
-          </a>
-
-          <!-- Header -->
-          <header id="header">
-            <a href="#" class="logo">
-              <span class="logo-icon"></span>
-              Dyme Construction
-            </a>
-            <button class="nav-toggle">
-              <i class="fas fa-bars"></i>
-            </button>
-            <nav>
-              <ul>
-                <li class="active"><a href="#home">Home</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#team">Our People</a></li>
-                <li><a href="#contact">Contact Us</a></li>
-              </ul>
-            </nav>
-            <div class="social-icons">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-          </header>
-
-          <!-- Hero Section with Internal Slider -->
-          <section class="hero" id="home">
-            <div class="hero-slider">
-              <div class="slides-container">
-                <div
-                  class="slide active"
-                  style="
-                    background-image: linear-gradient(
-                        rgba(0, 0, 0, 0.5),
-                        rgba(0, 0, 0, 0.5)
-                      ),
-                      url('https://cdn.pixabay.com/photo/2019/03/30/19/28/skyscraper-4091879_1280.jpg');
-                  "
-                >
-                  <div class="slide-content">
-                    <h1>Greenland Centre Sydney</h1>
-                    <p>
-                      Excellence in construction for modern architectural marvels.
-                      Building the future with precision, quality, and innovation.
-                    </p>
-                    <a href="#about" class="btn">Discover More</a>
-                  </div>
-                </div>
-                <div
-                  class="slide"
-                  style="
-                    background-image: linear-gradient(
-                        rgba(0, 0, 0, 0.5),
-                        rgba(0, 0, 0, 0.5)
-                      ),
-                      url('https://cdn.pixabay.com/photo/2017/03/28/12/11/chairs-2181960_1280.jpg');
-                  "
-                >
-                  <div class="slide-content">
-                    <h1>Luxury Residential Projects</h1>
-                    <p>
-                      Creating spaces that blend comfort with sophistication. Premium
-                      living experiences designed with meticulous attention to detail.
-                    </p>
-                    <a href="#projects" class="btn">View Portfolio</a>
-                  </div>
-                </div>
-                <div
-                  class="slide"
-                  style="
-                    background-image: linear-gradient(
-                        rgba(0, 0, 0, 0.5),
-                        rgba(0, 0, 0, 0.5)
-                      ),
-                      url('https://cdn.pixabay.com/photo/2016/11/18/17/46/architecture-1836070_1280.jpg');
-                  "
-                >
-                  <div class="slide-content">
-                    <h1>Commercial Excellence</h1>
-                    <p>
-                      Delivering landmark commercial structures that redefine urban
-                      landscapes and empower businesses to thrive.
-                    </p>
-                    <a href="#services" class="btn">Our Expertise</a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Slider Navigation -->
-              <div class="slider-nav">
-                <button class="slider-arrow prev">
-                  <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="slider-dots">
-                  <span class="dot active" data-slide="0"></span>
-                  <span class="dot" data-slide="1"></span>
-                  <span class="dot" data-slide="2"></span>
-                </div>
-                <button class="slider-arrow next">
-                  <i class="fas fa-chevron-right"></i>
-                </button>
-              </div>
-            </div>
-
-            <a href="#about" class="scroll-down">
-              <i class="fas fa-chevron-down"></i>
-            </a>
-          </section>
-
-          <!-- Company Info Section -->
-          <section class="company-info" id="about">
-            <div class="company-info-content">
-              <div class="company-info-text">
-                <h2>THE DYME COVER</h2>
-                <p>
-                  Dyme Construction prides itself on illustrious projects by
-                  delivering best-in-class building, stone, and facade finishes. The
-                  Dyme Construction team is known for their all-encompassing delivery
-                  of projects, from procurement to installation, on Tier 1
-                  developments across Australia.
-                </p>
-                <p>
-                  With our established industry networks and long-standing supplier
-                  relationships, we create a platform to import materials globally for
-                  our client's specific and tailored project requirements.
-                </p>
-                <p>
-                  Dyme Construction has a history of globally importing unique stones
-                  and materials directly from their quarries. Our factory and
-                  installation teams are robust, encouraged and empowered with long
-                  company tenures, established through a robust, passionate and
-                  empowering culture, establishing the foundation of Dyme
-                  Construction.
-                </p>
-                <a href="#services" class="btn btn-outlined">Our Services</a>
-              </div>
-              <div
-                class="company-info-image"
-                style="
-                  background-image: url('https://cdn.pixabay.com/photo/2016/11/23/15/14/architect-1853491_1280.jpg');
-                "
-              ></div>
-            </div>
-          </section>
-
-          <!-- Services Section -->
-          <section
-            class="services"
-            id="services"
-            style="
-              background-image: url('https://cdn.pixabay.com/photo/2016/11/22/19/24/archive-1850170_1280.jpg');
-              background-attachment: fixed;
-              background-size: cover;
-              background-position: center;
-              position: relative;
-            "
-          >
-            <div
-              style="
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(255, 255, 255, 0.92);
-                z-index: 1;
-              "
-            ></div>
-            <div class="section-header" style="position: relative; z-index: 2">
-              <h2 class="section-title">Our Services</h2>
-              <p class="section-subtitle">
-                We provide comprehensive construction services tailored to meet your
-                project's unique requirements and vision.
-              </p>
-            </div>
-            <div class="services-grid" style="position: relative; z-index: 2">
-              <div class="service-card">
-                <div class="service-icon">
-                  <i class="fas fa-hard-hat"></i>
-                </div>
-                <h3>Engineering Solutions</h3>
-                <p>
-                  We meet your specific project requirements. We'll work in accordance
-                  to your specific needs, requirements and processes to deliver
-                  exceptional results.
-                </p>
-                <a href="#" class="read-more"
-                  >Learn More <i class="fas fa-arrow-right"></i
-                ></a>
-              </div>
-              <div class="service-card">
-                <div class="service-icon">
-                  <i class="fas fa-truck-loading"></i>
-                </div>
-                <h3>Procurement</h3>
-                <p>
-                  Direct procurement of all materials from overseas. Allocated
-                  logistic and quality control department to ensure client
-                  expectations are met and exceeded.
-                </p>
-                <a href="#" class="read-more"
-                  >Learn More <i class="fas fa-arrow-right"></i
-                ></a>
-              </div>
-              <div class="service-card">
-                <div class="service-icon">
-                  <i class="fas fa-comments"></i>
-                </div>
-                <h3>Consultation</h3>
-                <p>
-                  We recognize your business vision. We take the time to deeply
-                  understand your business' vision for each project to ensure perfect
-                  alignment.
-                </p>
-                <a href="#" class="read-more"
-                  >Learn More <i class="fas fa-arrow-right"></i
-                ></a>
-              </div>
-              <div class="service-card">
-                <div class="service-icon">
-                  <i class="fas fa-tools"></i>
-                </div>
-                <h3>Installation</h3>
-                <p>
-                  Dedicated and qualified construction installers ready to deliver any
-                  type of project with precision, expertise and attention to detail.
-                </p>
-                <a href="#" class="read-more"
-                  >Learn More <i class="fas fa-arrow-right"></i
-                ></a>
-              </div>
-            </div>
-          </section>
-
-          <!-- Stats Section -->
-          <section
-            class="stats"
-            id="stats"
-            style="
-              background: linear-gradient(
-                  135deg,
-                  rgba(46, 46, 46, 0.85) 0%,
-                  rgba(74, 74, 74, 0.85) 100%
-                ),
-                url('https://cdn.pixabay.com/photo/2019/10/08/13/05/skyline-4534348_1280.jpg')
-                  center/cover no-repeat fixed;
-            "
-          >
-            <div class="stats-content">
-              <h2 class="stats-title">EVERY ANGLE COVERED</h2>
-              <p class="stats-subtitle">
-                Our numbers speak for themselves. With a track record of excellence
-                across Australia's most demanding construction projects, Dyme
-                Construction continues to deliver exceptional results year after year.
-              </p>
-
-              <div class="stats-grid">
-                <div class="stat-item">
-                  <div class="stat-icon">
-                    <i class="fas fa-building"></i>
-                  </div>
-                  <div class="stat-value" data-count="380">0</div>
-                  <div class="stat-label">Completed Projects</div>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-icon">
-                    <i class="fas fa-chart-area"></i>
-                  </div>
-                  <div class="stat-value" data-count="5">0</div>
-                  <span class="stat-unit">m sqm+</span>
-                  <div class="stat-label">Area Built</div>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-icon">
-                    <i class="fas fa-hard-hat"></i>
-                  </div>
-                  <div class="stat-value" data-count="350">0</div>
-                  <div class="stat-label">Professional Team</div>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-icon">
-                    <i class="fas fa-trophy"></i>
-                  </div>
-                  <div class="stat-value" data-count="12">0</div>
-                  <div class="stat-label">Awards Won</div>
-                </div>
-              </div>
-            </div>
-
-            <script>
-              // Add this script at the bottom of the page or include in the main script
-              function animateStats() {
-                const statValues = document.querySelectorAll(".stat-value");
-
-                // Only animate if in viewport
-                const observer = new IntersectionObserver(
-                  (entries) => {
-                    entries.forEach((entry) => {
-                      if (entry.isIntersecting) {
-                        const target = entry.target;
-                        const countTo = parseInt(target.getAttribute("data-count"));
-                        const duration = 2000; // animation duration in ms
-                        const startTime = performance.now();
-
-                        function updateCount(currentTime) {
-                          const elapsedTime = currentTime - startTime;
-                          const progress = Math.min(elapsedTime / duration, 1);
-                          const currentCount = Math.floor(progress * countTo);
-
-                          target.textContent = currentCount;
-
-                          if (progress < 1) {
-                            requestAnimationFrame(updateCount);
-                          } else {
-                            target.textContent = countTo + "+";
-                          }
-                        }
-
-                        requestAnimationFrame(updateCount);
-                        observer.unobserve(target); // Stop observing once animation starts
-                      }
-                    });
-                  },
-                  { threshold: 0.2 }
-                );
-
-                statValues.forEach((value) => {
-                  observer.observe(value);
-                });
-              }
-
-              // Call the function when page loads or on DOMContentLoaded
-              document.addEventListener("DOMContentLoaded", animateStats);
-            </script>
-
-            <style>
-              .stats {
-                padding: 8rem 0;
-                color: var(--white);
-                position: relative;
-              }
-
-              .stats-title {
-                font-size: 2.5rem;
-                margin-bottom: 4rem;
-                text-align: center;
-                position: relative;
-                width: 100%;
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-                font-weight: 700;
-                letter-spacing: 1px;
-                color: var(--white);
-                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-              }
-
-              .stats-subtitle {
-                text-align: center;
-                color: var(--gray-300);
-                max-width: 800px;
-                margin: 0 auto 4rem;
-                font-size: 1.1rem;
-                line-height: 1.7;
-              }
-
-              .stats-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-                gap: 3.5rem;
-                max-width: 1200px;
-                margin: 0 auto;
-              }
-
-              .stat-item {
-                text-align: center;
-                background: rgba(0, 0, 0, 0.2);
-                padding: 2.5rem 1rem;
-                border-radius: var(--border-radius-md);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-                border: 1px solid rgba(212, 175, 55, 0.1);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-              }
-
-              .stat-item:hover {
-                transform: translateY(-10px);
-                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-                border-color: rgba(212, 175, 55, 0.3);
-              }
-
-              .stat-icon {
-                font-size: 2.5rem;
-                color: var(--primary-color);
-                margin-bottom: 1.5rem;
-              }
-
-              .stat-value {
-                font-size: 3.5rem;
-                font-weight: 700;
-                margin-bottom: 0.5rem;
-                background: linear-gradient(
-                  to right,
-                  var(--primary-color),
-                  var(--primary-light)
-                );
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                position: relative;
-                display: inline-block;
-              }
-
-              .stat-unit {
-                font-size: 1.5rem;
-                font-weight: 700;
-                color: var(--primary-light);
-                margin-left: 0.25rem;
-              }
-
-              .stat-label {
-                font-size: 1.2rem;
-                font-weight: 500;
-                letter-spacing: 1px;
-                margin-top: 1rem;
-              }
-
-              @media (max-width: 768px) {
-                .stats-subtitle {
-                  padding: 0 2rem;
-                }
-              }
-
-              /* Contact & Map Section */
-              .cta-map-section {
-                padding: 0;
-                position: relative;
-                overflow: hidden;
-                color: var(--white);
-              }
-
-              .cta-map-container {
-                display: flex;
-                min-height: 600px;
-              }
-
-              .cta-content {
-                flex: 1;
-                padding: 6rem 4rem;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                animation: fadeIn 1s ease-out;
-              }
-
-              .cta-content h2 {
-                font-size: 3rem;
-                margin-bottom: 1.5rem;
-                line-height: 1.3;
-                position: relative;
-              }
-
-              .cta-content h2:after {
-                content: "";
-                position: absolute;
-                width: 80px;
-                height: 4px;
-                background-color: var(--white);
-                bottom: -15px;
-                left: 0;
-              }
-
-              .cta-content p {
-                font-size: 1.2rem;
-                margin-bottom: 2.5rem;
-                line-height: 1.7;
-                color: var(--white);
-                opacity: 0.9;
-                max-width: 500px;
-              }
-
-              .contact-options {
-                display: flex;
-                flex-direction: column;
-                gap: 1.5rem;
-                margin-bottom: 2.5rem;
-              }
-
-              .contact-option {
-                display: flex;
-                align-items: center;
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: var(--border-radius-md);
-                padding: 1rem;
-                transition: all var(--transition-normal);
-              }
-
-              .contact-option:hover {
-                transform: translateX(10px);
-                background: rgba(255, 255, 255, 0.2);
-              }
-
-              .contact-option-icon {
-                width: 50px;
-                height: 50px;
-                background: var(--white);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-right: 1rem;
-                color: var(--primary-dark);
-                font-size: 1.3rem;
-              }
-
-              .contact-option-info h4 {
-                font-size: 1rem;
-                margin-bottom: 0.2rem;
-                font-weight: 600;
-              }
-
-              .contact-option-info p {
-                font-size: 1rem;
-                margin-bottom: 0;
-                color: var(--white);
-                opacity: 0.9;
-              }
-
-              .cta-buttons {
-                display: flex;
-                gap: 1rem;
-                flex-wrap: wrap;
-              }
-
-              .cta-btn {
-                padding: 1rem 2rem;
-                font-size: 1rem;
-                min-width: 180px;
-                text-align: center;
-              }
-
-              .cta-btn-outline {
-                background-color: transparent;
-                border: 2px solid var(--white);
-                color: var(--white);
-              }
-
-              .cta-btn-outline:hover {
-                background-color: var(--white);
-                color: var(--primary-dark);
-              }
-
-              .map-container {
-                flex: 1;
-                position: relative;
-                min-height: 400px;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-              }
-
-              @media (max-width: 992px) {
-                .cta-map-container {
-                  flex-direction: column;
-                }
-
-                .cta-content {
-                  padding: 4rem 2rem;
-                  text-align: center;
-                  align-items: center;
-                }
-
-                .cta-content h2:after {
-                  left: 50%;
-                  transform: translateX(-50%);
-                }
-
-                .map-container {
-                  height: 400px;
-                }
-
-                .contact-option:hover {
-                  transform: translateY(-5px);
-                }
-              }
-
-              @media (max-width: 576px) {
-                .cta-content h2 {
-                  font-size: 2.2rem;
-                }
-
-                .cta-buttons {
-                  flex-direction: column;
-                  width: 100%;
-                }
-
-                .contact-option {
-                  flex-direction: column;
-                  text-align: center;
-                  padding: 1.5rem 1rem;
-                }
-
-                .contact-option-icon {
-                  margin-right: 0;
-                  margin-bottom: 1rem;
-                }
-              }
-
-              .contact-form {
-                margin-bottom: 2.5rem;
-              }
-
-              .form-group {
-                margin-bottom: 1rem;
-              }
-
-              .contact-form input,
-              .contact-form textarea {
-                width: 100%;
-                padding: 1rem;
-                background-color: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                border-radius: var(--border-radius-sm);
-                color: var(--white);
-                transition: all 0.3s;
-              }
-
-              .contact-form input:focus,
-              .contact-form textarea:focus {
-                outline: none;
-                background-color: rgba(255, 255, 255, 0.2);
-                border-color: var(--white);
-              }
-
-              .contact-form input::placeholder,
-              .contact-form textarea::placeholder {
-                color: rgba(255, 255, 255, 0.7);
-              }
-
-              .contact-form button {
-                width: 100%;
-                margin-top: 1rem;
-              }
-
-              @keyframes fadeIn {
-                from {
-                  opacity: 0;
-                }
-                to {
-                  opacity: 1;
-                }
-              }
-            </style>
-          </head>
-          <body>
-            <!-- Preloader -->
-            <div class="preloader">
-              <div class="loader"></div>
-            </div>
-
-            <!-- Back to Top Button -->
-            <a href="#" class="back-to-top">
-              <i class="fas fa-arrow-up"></i>
-            </a>
-
-            <!-- Header -->
-            <header id="header">
-              <a href="#" class="logo">
-                <span class="logo-icon"></span>
-                Dyme Construction
-              </a>
-              <button class="nav-toggle">
-                <i class="fas fa-bars"></i>
-              </button>
-              <nav>
-                <ul>
-                  <li class="active"><a href="#home">Home</a></li>
-                  <li><a href="#about">About Us</a></li>
-                  <li><a href="#services">Services</a></li>
-                  <li><a href="#projects">Projects</a></li>
-                  <li><a href="#team">Our People</a></li>
-                  <li><a href="#contact">Contact Us</a></li>
-                </ul>
-              </nav>
-              <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              </div>
-            </header>
-
-            <!-- Hero Section with Internal Slider -->
-            <section class="hero" id="home">
-              <div class="hero-slider">
-                <div class="slides-container">
-                  <div
-                    class="slide active"
-                    style="
-                      background-image: linear-gradient(
-                          rgba(0, 0, 0, 0.5),
-                          rgba(0, 0, 0, 0.5)
-                        ),
-                        url('https://cdn.pixabay.com/photo/2019/03/30/19/28/skyscraper-4091879_1280.jpg');
-                    "
-                  >
-                    <div class="slide-content">
-                      <h1>Greenland Centre Sydney</h1>
-                      <p>
-                        Excellence in construction for modern architectural marvels.
-                        Building the future with precision, quality, and innovation.
-                      </p>
-                      <a href="#about" class="btn">Discover More</a>
-                    </div>
-                  </div>
-                  <div
-                    class="slide"
-                    style="
-                      background-image: linear-gradient(
-                          rgba(0, 0, 0, 0.5),
-                          rgba(0, 0, 0, 0.5)
+        });
+      }
+
+      // Initialize animation
+      window.addEventListener("load", () => {
+        document
+          .querySelectorAll(".service-card, .stat-item, .project-card")
+          .forEach((element) => {
+            element.style.opacity = "0";
+            element.style.transform = "translateY(30px)";
+            element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+          });
+
+        setTimeout(() => {
+          animateOnScroll();
+        }, 500);
+      });
+
+      window.addEventListener("scroll", animateOnScroll);
+    </script>
+  </body>
+</html>
