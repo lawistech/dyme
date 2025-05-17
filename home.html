@@ -866,123 +866,127 @@
         }
       }
 
-      @media (max-width: 576px) {
-        .stats-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      /* Projects Section */
-      .projects {
+      /* Our People Section */
+      .team {
         padding: 7rem 0;
-        background-color: var(--white);
+        background-color: var(--gray-100);
         position: relative;
         overflow: hidden;
       }
 
-      .projects::before {
+      .team::before {
         content: "";
         position: absolute;
         width: 300px;
         height: 300px;
         background-color: rgba(212, 175, 55, 0.05);
         border-radius: 50%;
-        bottom: -150px;
-        right: -150px;
+        top: -150px;
+        left: -150px;
       }
 
-      .projects-grid {
+      .team-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2.5rem;
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 2rem;
       }
 
-      .project-card {
-        position: relative;
-        overflow: hidden;
+      .team-member {
+        background-color: var(--white);
         border-radius: var(--border-radius-md);
+        overflow: hidden;
         box-shadow: var(--box-shadow-sm);
-        height: 300px;
-        transition: all 0.3s ease;
+        transition: all var(--transition-normal);
+        position: relative;
       }
 
-      .project-card:hover {
+      .team-member:hover {
         transform: translateY(-10px);
         box-shadow: var(--box-shadow-lg);
       }
 
-      .project-image {
+      .team-photo {
         width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
+        height: 320px;
+        object-fit: cover;
         transition: transform 0.5s ease;
       }
 
-      .project-card:hover .project-image {
-        transform: scale(1.1);
+      .team-member:hover .team-photo {
+        transform: scale(1.05);
       }
 
-      .project-overlay {
+      .team-info {
+        padding: 1.5rem;
+        text-align: center;
+        position: relative;
+      }
+
+      .team-info::before {
+        content: "";
         position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 2rem;
-        background: linear-gradient(
-          to top,
-          rgba(0, 0, 0, 0.8) 0%,
-          rgba(0, 0, 0, 0) 100%
-        );
-        color: var(--white);
-        transition: all 0.3s ease;
+        width: 50px;
+        height: 3px;
+        background-color: var(--primary-color);
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
       }
 
-      .project-title {
+      .team-name {
         font-size: 1.4rem;
+        color: var(--secondary-color);
+        margin-bottom: 0.3rem;
         font-weight: 600;
-        margin-bottom: 0.5rem;
       }
 
-      .project-category {
-        display: inline-block;
-        background-color: #393939;
-        color: var(--white);
-        padding: 0.3rem 1rem;
-        border-radius: 30px;
-        font-size: 0.8rem;
+      .team-position {
+        font-size: 0.9rem;
+        color: var(--primary-dark);
         font-weight: 500;
         text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
       }
 
-      .project-button {
-        position: absolute;
-        top: 1.5rem;
-        right: 1.5rem;
-        width: 45px;
-        height: 45px;
-        background-color: #393939;
-        border-radius: 50%;
+      .team-bio {
+        font-size: 0.95rem;
+        color: var(--text-light);
+        line-height: 1.6;
+        margin-bottom: 1.2rem;
+      }
+
+      .team-social {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .team-social a {
+        width: 36px;
+        height: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--white);
-        text-decoration: none;
-        transform: scale(0);
+        color: var(--secondary-color);
+        background-color: var(--gray-200);
+        border-radius: 50%;
         transition: all 0.3s ease;
       }
 
-      .project-card:hover .project-button {
-        transform: scale(1);
+      .team-social a:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+        transform: translateY(-5px);
       }
 
-      .project-button:hover {
-        background-color: #393939;
-        opacity: 0.8;
-        color: var(--white);
+      @media (max-width: 768px) {
+        .team-grid {
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
       }
 
       /* Call to Action Section */
@@ -1575,6 +1579,99 @@
       </div>
     </section>
 
+    <!-- Our People Section -->
+    <section class="team" id="team">
+      <div class="section-header">
+        <h2 class="section-title">Our People</h2>
+        <p class="section-subtitle">
+          Meet our team of experienced professionals dedicated to bringing your
+          construction vision to life.
+        </p>
+      </div>
+      <div class="team-grid">
+        <div class="team-member">
+          <img
+            src="https://cdn.pixabay.com/photo/2016/11/29/09/38/adult-1868750_1280.jpg"
+            alt="Team Member"
+            class="team-photo"
+          />
+          <div class="team-info">
+            <h3 class="team-name">Michael Johnson</h3>
+            <p class="team-position">Managing Director</p>
+            <p class="team-bio">
+              With over 20 years of experience in construction management,
+              Michael leads our team with expertise and vision.
+            </p>
+            <div class="team-social">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-member">
+          <img
+            src="https://cdn.pixabay.com/photo/2019/02/11/20/20/woman-3990680_1280.jpg"
+            alt="Team Member"
+            class="team-photo"
+          />
+          <div class="team-info">
+            <h3 class="team-name">Sarah Williams</h3>
+            <p class="team-position">Project Director</p>
+            <p class="team-bio">
+              Sarah specializes in complex project delivery and ensures every
+              project is completed to the highest standards.
+            </p>
+            <div class="team-social">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-member">
+          <img
+            src="https://cdn.pixabay.com/photo/2016/11/29/20/22/adult-1871436_1280.jpg"
+            alt="Team Member"
+            class="team-photo"
+          />
+          <div class="team-info">
+            <h3 class="team-name">David Chen</h3>
+            <p class="team-position">Construction Manager</p>
+            <p class="team-bio">
+              David brings technical excellence to our construction processes
+              with his engineering background.
+            </p>
+            <div class="team-social">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-member">
+          <img
+            src="https://cdn.pixabay.com/photo/2017/06/26/02/47/man-2442565_1280.jpg"
+            alt="Team Member"
+            class="team-photo"
+          />
+          <div class="team-info">
+            <h3 class="team-name">James Wilson</h3>
+            <p class="team-position">Design Director</p>
+            <p class="team-bio">
+              James leads our design team with creativity and attention to
+              detail on all architectural aspects.
+            </p>
+            <div class="team-social">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Call to Action -->
     <section
       class="cta"
@@ -1898,7 +1995,6 @@
           animated = true;
         }
       });
-
       // Initialize the slider
       startSlider();
 
